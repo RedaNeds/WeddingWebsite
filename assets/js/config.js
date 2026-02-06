@@ -11,7 +11,7 @@ const CONFIG = {
     // Date et heure
     event: {
         date: "16 mai 2026",
-        dateFormatted: "Samedi 16 Mai 2026",
+        dateFormatted: "11H30. Samedi 16 Mai 2026",
         time: "11H30",
     },
 
@@ -28,7 +28,7 @@ const CONFIG = {
         address: "12 Av. de Paris, 91790",
         city: "Boissy-sous-Saint-Yon",
         mapUrl: "https://www.google.com/maps?q=Le%20Paradis%20d%20Anjelina",
-        mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2640.888093242678!2d2.2185260767422457!3d48.55453702204113!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e5d1eb88034751%3A0x58e8a27a5db5063!2sLe%20Paradis%20d&#39;Anjelina!5e0!3m2!1sfr!2sfr!4v1770413269446!5m2!1sfr!2sfr",
+        mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2640.888093242678!2d2.2185260767422457!3d48.55453702204113!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e5d1eb88034751%3A0x58e8a27a5db5063!2sLe%20Paradis%20d'Anjelina!5e0!3m2!1sfr!2sfr!4v1770413269446!5m2!1sfr!2sfr",
     },
 
     // Programme - À MODIFIER

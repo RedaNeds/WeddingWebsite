@@ -146,7 +146,7 @@ function startCountdown() {
         const days = Math.floor(diff / (1000 * 60 * 60 * 24));
         const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        // const seconds = Math.floor((diff % (1000 * 60)) / 1000); // Optional seconds
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
         countdownEl.innerHTML = `
       <div class="countdown-item">
@@ -161,11 +161,15 @@ function startCountdown() {
         <span class="countdown-value">${minutes}</span>
         <span class="countdown-label">Minutes</span>
       </div>
+      <div class="countdown-item">
+        <span class="countdown-value">${seconds}</span>
+        <span class="countdown-label">Secondes</span>
+      </div>
     `;
     }
 
     update();
-    setInterval(update, 60000); // Update every minute
+    setInterval(update, 1000); // Update every second
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
