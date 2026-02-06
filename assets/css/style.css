@@ -204,7 +204,8 @@ body {
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 2rem;
+  padding: 2rem 2rem 6rem 2rem;
+  /* Increased bottom padding for scroll indicator */
   position: relative;
   background:
     radial-gradient(ellipse at top, rgba(201, 169, 110, 0.08) 0%, transparent 50%),
