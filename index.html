@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Invitation au mariage de Reda & Rania - 16 mai 2026">
+  <meta name="theme-color" content="#C9A96E">
+
+  <!-- Social Media Sharing -->
+  <meta property="og:title" content="Reda & Rania - Notre Mariage">
+  <meta property="og:description"
+    content="Invitation au mariage de Reda & Rania - 16 mai 2026. RSVP et détails de la cérémonie.">
+  <meta property="og:type" content="website">
+
+  <title>Reda & Rania - Notre Mariage</title>
+
+  <!-- Preconnect for fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap"
+    rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════════
+       NAVIGATION
+       ═══════════════════════════════════════════════════════════════════════════════ -->
+  <nav class="nav-fixed" id="navbar">
+    <div class="nav-inner">
+      <a href="#hero" class="nav-link">Accueil</a>
+      <a href="#info" class="nav-link">Informations</a>
+      <a href="#rsvp" class="nav-link">RSVP</a>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════════
+       HERO SECTION
+       ═══════════════════════════════════════════════════════════════════════════════ -->
+  <section id="hero" class="hero-section">
+    <div class="hero-content">
+      <div class="hero-date-top animate-fade-in-up" id="hero-date">
+        <!-- Date injectée par JS -->
+      </div>
+
+      <h1 class="hero-names animate-fade-in-up animate-delay-1">
+        <span id="partner1">Reda</span>
+        <span class="hero-ampersand">&</span>
+        <span id="partner2">Rania</span>
+      </h1>
+
+      <div class="ornament animate-fade-in-up animate-delay-2">
+        <span class="ornament-line"></span>
+        <span class="ornament-diamond"></span>
+        <span class="ornament-line"></span>
+      </div>
+
+      <p class="hero-subtitle animate-fade-in-up animate-delay-2" id="hero-subtitle">
+        Nous avons l'honneur de vous inviter à célébrer notre union
+      </p>
+
+      <p class="hero-invitation animate-fade-in-up animate-delay-3" id="hero-invitation">
+        Avec joie et émotion, nous serions honorés de votre présence pour partager ce moment unique de nos vies.
+      </p>
+
+      <a href="#info" class="hero-button animate-fade-in-up animate-delay-4">
+        Voir les détails
+        <span>↓</span>
+      </a>
+    </div>
+
+    <div class="scroll-indicator">
+      <span>Défiler</span>
+      <div class="scroll-arrow"></div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════════
+       INFO SECTION
+       ═══════════════════════════════════════════════════════════════════════════════ -->
+  <section id="info" class="info-section">
+    <h2 class="section-title reveal">Notre Jour</h2>
+    <div class="section-subtitle reveal">Les détails de la célébration</div>
+
+    <div class="ornament reveal">
+      <span class="ornament-line"></span>
+      <span class="ornament-diamond"></span>
+      <span class="ornament-line"></span>
+    </div>
+
+    <div class="info-grid">
+      <div class="info-card reveal">
+        <div class="info-icon">📅</div>
+        <h3 class="info-card-title">Date</h3>
+        <p class="info-card-content">
+          <strong id="event-date">Samedi 16 Mai 2026</strong>
+        </p>
+      </div>
+
+      <div class="info-card reveal">
+        <div class="info-icon">📍</div>
+        <h3 class="info-card-title">Lieu</h3>
+        <p class="info-card-content" id="venue-info">
+          <strong>[Nom du lieu]</strong><br>
+          [Adresse complète]<br>
+          [Ville]
+        </p>
+      </div>
+
+      <div class="info-card reveal">
+        <div class="info-icon">👔</div>
+        <h3 class="info-card-title">Dress Code</h3>
+        <p class="info-card-content" id="dresscode-info">
+          <strong>Tenue de soirée élégante</strong><br>
+          Couleurs suggérées : tons neutres, pastels, or, champagne. Éviter le blanc.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════════
+       PROGRAM SECTION
+       ═══════════════════════════════════════════════════════════════════════════════ -->
+  <section class="program-section">
+    <h2 class="section-title reveal">Programme</h2>
+    <div class="section-subtitle reveal">Déroulement de la journée</div>
+
+    <div class="ornament reveal">
+      <span class="ornament-line"></span>
+      <span class="ornament-diamond"></span>
+      <span class="ornament-line"></span>
+    </div>
+
+    <div class="program-timeline reveal" id="program-timeline">
+      <!-- Injecté par JS -->
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════════
+       MAP SECTION
+       ═══════════════════════════════════════════════════════════════════════════════ -->
+  <section class="map-section">
+    <h2 class="section-title reveal">Comment nous rejoindre</h2>
+    <div class="section-subtitle reveal" id="venue-name">[Nom du lieu]</div>
+
+    <div class="map-container reveal">
+      <iframe id="map-embed" class="map-embed"
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2624.9916256937595!2d2.292292615509614!3d48.85837007928746!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e66e2964e34e2d%3A0x8ddca9ee380ef7e0!2sTour%20Eiffel!5e0!3m2!1sfr!2sfr!4v1635959562000!5m2!1sfr!2sfr"
+        allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Lieu du mariage"></iframe>
+      <a id="map-link" href="https://maps.google.com/?q=Paris,France" target="_blank" rel="noopener noreferrer"
+        class="map-button">
+        📍 Ouvrir dans Google Maps
+      </a>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════════
+       PRACTICAL INFO SECTION
+       ═══════════════════════════════════════════════════════════════════════════════ -->
+  <section class="practical-section">
+    <h2 class="section-title reveal">Informations Pratiques</h2>
+
+    <div class="ornament reveal">
+      <span class="ornament-line"></span>
+      <span class="ornament-diamond"></span>
+      <span class="ornament-line"></span>
+    </div>
+
+    <div class="practical-grid reveal" id="practical-grid">
+      <!-- Injecté par JS -->
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════════
+       RSVP SECTION
+       ═══════════════════════════════════════════════════════════════════════════════ -->
+  <section id="rsvp" class="rsvp-section">
+    <h2 class="section-title reveal">Confirmez votre présence</h2>
+    <div class="section-subtitle reveal" id="rsvp-deadline">Merci de répondre avant le 1er avril 2026</div>
+
+    <div class="ornament reveal">
+      <span class="ornament-line"></span>
+      <span class="ornament-diamond"></span>
+      <span class="ornament-line"></span>
+    </div>
+
+    <form class="rsvp-form reveal" id="rsvp-form">
+      <div class="form-error" id="form-error"></div>
+
+      <div class="form-group form-row">
+        <div>
+          <label class="form-label">Prénom *</label>
+          <input type="text" name="firstName" class="form-input" placeholder="Votre prénom" id="firstName" required>
+        </div>
+        <div>
+          <label class="form-label">Nom *</label>
+          <input type="text" name="lastName" class="form-input" placeholder="Votre nom" id="lastName" required>
+        </div>
+      </div>
+
+      <div class="form-group form-row">
+        <div>
+          <label class="form-label">Email</label>
+          <input type="email" name="email" class="form-input" placeholder="votre@email.com" id="email">
+        </div>
+        <div>
+          <label class="form-label">Téléphone</label>
+          <input type="tel" name="phone" class="form-input" placeholder="06 00 00 00 00" id="phone">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Serez-vous présent(e) ? *</label>
+        <div class="attendance-options">
+          <div class="attendance-option" id="attending-yes" onclick="setAttending(true)">
+            <div class="attendance-icon">🎉</div>
+            <div class="attendance-text">Oui, avec joie !</div>
+          </div>
+          <div class="attendance-option" id="attending-no" onclick="setAttending(false)">
+            <div class="attendance-icon">😢</div>
+            <div class="attendance-text">Malheureusement non</div>
+          </div>
+        </div>
+        <input type="hidden" name="attending" id="attending" value="">
+      </div>
+
+      <div class="guests-section" id="guests-section">
+        <div class="form-group">
+          <label class="form-label">Nombre d'accompagnants</label>
+          <div class="guests-counter">
+            <button type="button" class="counter-btn" onclick="updateGuests(-1)" id="guests-minus">−</button>
+            <span class="counter-value" id="guests-value">0</span>
+            <button type="button" class="counter-btn" onclick="updateGuests(1)" id="guests-plus">+</button>
+          </div>
+          <input type="hidden" name="guests" id="guests" value="0">
+        </div>
+
+        <div class="form-group guest-names-section" id="guest-names-section">
+          <label class="form-label">Noms des accompagnants</label>
+          <input type="text" name="guestNames" class="form-input" placeholder="Prénom et nom de chaque accompagnant"
+            id="guestNames">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Restrictions alimentaires (optionnel)</label>
+          <input type="text" name="dietary" class="form-input" placeholder="Allergies, régime végétarien, etc."
+            id="dietary">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Un message pour les mariés (optionnel)</label>
+        <textarea name="message" class="form-input form-textarea" placeholder="Écrivez un petit mot..."
+          id="message"></textarea>
+      </div>
+
+      <button type="submit" class="submit-button" id="submit-btn">
+        Envoyer ma réponse
+      </button>
+    </form>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════════
+       FOOTER
+       ═══════════════════════════════════════════════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="footer-names" id="footer-names">Reda & Rania</div>
+    <div class="footer-date" id="footer-date">Samedi 16 Mai 2026</div>
+    <div class="footer-hearts">♥ ♥ ♥</div>
+  </footer>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════════
+       THANK YOU OVERLAY
+       ═══════════════════════════════════════════════════════════════════════════════ -->
+  <div class="thankyou-overlay" id="thankyou-overlay">
+    <div class="thankyou-content">
+      <div class="thankyou-icon" id="thankyou-icon">💕</div>
+
+      <h2 class="thankyou-title" id="thankyou-title">Merci beaucoup !</h2>
+
+      <p class="thankyou-message" id="thankyou-message">
+        Nous sommes ravis de vous compter parmi nous pour célébrer notre union.
+      </p>
+
+      <div class="thankyou-summary" id="thankyou-summary">
+        <h3 class="summary-title">Récapitulatif de votre réponse</h3>
+        <div id="summary-content"></div>
+      </div>
+
+      <button class="thankyou-close" onclick="closeThankYou()">
+        Fermer
+      </button>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════════
+       JAVASCRIPT
+       ═══════════════════════════════════════════════════════════════════════════════ -->
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+
+</html>
