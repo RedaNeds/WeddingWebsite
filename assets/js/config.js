@@ -15,8 +15,15 @@ const CONFIG = {
         time: "11H30",
     },
 
-    // Lieu - À MODIFIER
-    venue: {
+    // Lieux
+    ceremony: {
+        name: "Mairie du 18ème Arrondissement",
+        address: "1 Place Jules Joffrin",
+        city: "75018 Paris",
+        mapUrl: "https://maps.app.goo.gl/Mairie18", // Placeholder, will try to get real one or just standard
+    },
+
+    reception: {
         name: "Le Paradis D'Anjelina",
         address: "12 Av. de Paris, 91790",
         city: "Boissy-sous-Saint-Yon",
@@ -26,7 +33,7 @@ const CONFIG = {
 
     // Programme - À MODIFIER
     program: [
-        { time: "11h30", event: "Cérémonie", icon: "💒" },
+        { time: "11h30", event: "Cérémonie Civile (Mairie du 18ème)", icon: "💒" },
         { time: "17h30", event: "Atay d'honneur & Photos", icon: "📸" },
         { time: "20h00", event: "Dîner", icon: "🍽️" },
         { time: "22h00", event: "Soirée dansante", icon: "💃" },

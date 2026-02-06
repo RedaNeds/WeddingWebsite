@@ -64,6 +64,10 @@
         Nous avons l'honneur de vous inviter à célébrer notre union
       </p>
 
+      <div id="countdown" class="countdown animate-fade-in-up animate-delay-3">
+        <!-- Injecté par JS -->
+      </div>
+
       <p class="hero-invitation animate-fade-in-up animate-delay-3" id="hero-invitation">
         Avec joie et émotion, nous serions honorés de votre présence pour partager ce moment unique de nos vies.
       </p>
@@ -145,17 +149,37 @@
        MAP SECTION
        ═══════════════════════════════════════════════════════════════════════════════ -->
   <section class="map-section">
-    <h2 class="section-title reveal">Comment nous rejoindre</h2>
-    <div class="section-subtitle reveal" id="venue-name">[Nom du lieu]</div>
+    <h2 class="section-title reveal">Nous rejoindre</h2>
+    <div class="section-subtitle reveal">Les lieux des festivités</div>
 
-    <div class="map-container reveal">
-      <iframe id="map-embed" class="map-embed"
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2624.9916256937595!2d2.292292615509614!3d48.85837007928746!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e66e2964e34e2d%3A0x8ddca9ee380ef7e0!2sTour%20Eiffel!5e0!3m2!1sfr!2sfr!4v1635959562000!5m2!1sfr!2sfr"
-        allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Lieu du mariage"></iframe>
-      <a id="map-link" href="https://maps.google.com/?q=Paris,France" target="_blank" rel="noopener noreferrer"
-        class="map-button">
-        📍 Ouvrir dans Google Maps
-      </a>
+    <div class="map-grid">
+      <!-- Cérémonie -->
+      <div class="map-container reveal" id="map-ceremony">
+        <h3 class="info-card-title">Cérémonie</h3>
+        <p class="map-time">11h30</p>
+        <div class="map-address" id="ceremony-address">
+          <!-- Injecté par JS -->
+        </div>
+        <iframe id="map-ceremony-embed" class="map-embed" src="" allowfullscreen loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <a id="map-ceremony-link" href="" target="_blank" rel="noopener noreferrer" class="map-button">
+          📍 Y aller
+        </a>
+      </div>
+
+      <!-- Réception -->
+      <div class="map-container reveal" id="map-reception">
+        <h3 class="info-card-title">Réception</h3>
+        <p class="map-time">17h30</p>
+        <div class="map-address" id="reception-address">
+          <!-- Injecté par JS -->
+        </div>
+        <iframe id="map-reception-embed" class="map-embed" src="" allowfullscreen loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <a id="map-reception-link" href="" target="_blank" rel="noopener noreferrer" class="map-button">
+          📍 Y aller
+        </a>
+      </div>
     </div>
   </section>
 

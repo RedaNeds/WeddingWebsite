@@ -32,20 +32,21 @@ function initializeContent() {
     <div style="margin-bottom: 2rem">
         <strong style="color: var(--gold); display: block; margin-bottom: 0.5rem">💒 Cérémonie</strong>
         <strong>${CONFIG.ceremony.name}</strong><br>
-        ${CONFIG.ceremony.address}<br>
-        ${CONFIG.ceremony.city}
+        <span style="font-size: 0.9em">${CONFIG.ceremony.address}<br>${CONFIG.ceremony.city}</span>
     </div>
     <div>
         <strong style="color: var(--gold); display: block; margin-bottom: 0.5rem">🎉 Réception</strong>
         <strong>${CONFIG.reception.name}</strong><br>
-        ${CONFIG.reception.address}<br>
-        ${CONFIG.reception.city}
+        <span style="font-size: 0.9em">${CONFIG.reception.address}<br>${CONFIG.reception.city}</span>
     </div>
   `;
     document.getElementById('dresscode-info').innerHTML = `
     <strong>${CONFIG.dressCode.title}</strong><br>
     ${CONFIG.dressCode.description}
   `;
+
+    // Start Countdown
+    startCountdown();
 
     // Program
     const programHTML = CONFIG.program.map(item => `
@@ -57,11 +58,22 @@ function initializeContent() {
   `).join('');
     document.getElementById('program-timeline').innerHTML = programHTML;
 
-    // Map
-    // Map
-    document.getElementById('venue-name').innerHTML = `${CONFIG.reception.name}<br><span style="font-size:0.8em; font-weight:normal">(${CONFIG.reception.city})</span>`;
-    document.getElementById('map-embed').src = CONFIG.reception.mapEmbed;
-    document.getElementById('map-link').href = CONFIG.reception.mapUrl;
+    // Maps - Split
+    // Ceremony
+    document.getElementById('ceremony-address').innerHTML = `
+    <strong>${CONFIG.ceremony.name}</strong><br>
+    ${CONFIG.ceremony.address}<br>${CONFIG.ceremony.city}
+  `;
+    document.getElementById('map-ceremony-embed').src = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2623.2667364536696!2d2.342188076510886!3d48.89131669837941!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e66e6079c6d66b%3A0x6b2e1a3d3c7e0c0!2sMairie%20du%2018e%20Arrondissement!5e0!3m2!1sfr!2sfr!4v1700000000000!5m2!1sfr!2sfr"; // Using a generic embed for Mairie 18 until provided
+    document.getElementById('map-ceremony-link').href = CONFIG.ceremony.mapUrl;
+
+    // Reception
+    document.getElementById('reception-address').innerHTML = `
+    <strong>${CONFIG.reception.name}</strong><br>
+    ${CONFIG.reception.address}<br>${CONFIG.reception.city}
+  `;
+    document.getElementById('map-reception-embed').src = CONFIG.reception.mapEmbed;
+    document.getElementById('map-reception-link').href = CONFIG.reception.mapUrl;
 
     // Practical
     const practicalHTML = CONFIG.practical.map(item => `
@@ -94,6 +106,66 @@ function initializeScrollReveal() {
     }, { threshold: 0.1, rootMargin: '-50px' });
 
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// COUNTDOWN
+// ═══════════════════════════════════════════════════════════════════════════════
+function startCountdown() {
+    const countdownEl = document.getElementById('countdown');
+    // Combine date and time properly (assuming format "16 mai 2026" and "11h30")
+    // Need to parse standard french date or hardcode for simplicity using ISO format if avail, but here we construct it.
+    // Ideally CONFIG should have an ISO date string, but we can parse "16 mai 2026"
+
+    const months = {
+        'janvier': 0, 'février': 1, 'mars': 2, 'avril': 3, 'mai': 4, 'juin': 5,
+        'juillet': 6, 'août': 7, 'septembre': 8, 'octobre': 9, 'novembre': 10, 'décembre': 11
+    };
+
+    const dateParts = CONFIG.event.date.toLowerCase().split(' ');
+    const day = parseInt(dateParts[0]);
+    const month = months[dateParts[1]];
+    const year = parseInt(dateParts[2]);
+
+    // Parse time (e.g. "11h30")
+    const timeParts = CONFIG.event.time.toLowerCase().split('h');
+    const hour = parseInt(timeParts[0]);
+    const minute = parseInt(timeParts[1] || 0);
+
+    const targetDate = new Date(year, month, day, hour, minute);
+
+    function update() {
+        const now = new Date();
+        const diff = targetDate - now;
+
+        if (diff < 0) {
+            countdownEl.innerHTML = '<div class="countdown-value">C\'est aujourd\'hui !</div>';
+            return;
+        }
+
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        // const seconds = Math.floor((diff % (1000 * 60)) / 1000); // Optional seconds
+
+        countdownEl.innerHTML = `
+      <div class="countdown-item">
+        <span class="countdown-value">${days}</span>
+        <span class="countdown-label">Jours</span>
+      </div>
+      <div class="countdown-item">
+        <span class="countdown-value">${hours}</span>
+        <span class="countdown-label">Heures</span>
+      </div>
+      <div class="countdown-item">
+        <span class="countdown-value">${minutes}</span>
+        <span class="countdown-label">Minutes</span>
+      </div>
+    `;
+    }
+
+    update();
+    setInterval(update, 60000); // Update every minute
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════

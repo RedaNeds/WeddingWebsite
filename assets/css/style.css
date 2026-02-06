@@ -281,11 +281,46 @@ body {
   cursor: pointer;
   transition: all 0.4s ease;
   text-decoration: none;
+  margin-top: 2rem;
 }
 
 .hero-button:hover {
   background: var(--gold);
   color: var(--white);
+}
+
+/* Countdown */
+.countdown {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin: 1.5rem 0;
+  flex-wrap: wrap;
+}
+
+.countdown-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 60px;
+}
+
+.countdown-value {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.5rem;
+  font-weight: 300;
+  color: var(--gold);
+  line-height: 1;
+}
+
+.countdown-label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-light);
+  margin-top: 0.5rem;
 }
 
 .scroll-indicator {
@@ -297,7 +332,7 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 0.5rem;
-  animation: float 3s ease-in-out infinite;
+  /* Removed animation from container to keep it centered */
 }
 
 .scroll-indicator span {
@@ -305,6 +340,45 @@ body {
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--text-light);
+  animation: float 3s ease-in-out infinite;
+  /* Moove animation here */
+}
+
+.scroll-arrow {
+  width: 20px;
+  height: 20px;
+  border-right: 1px solid var(--gold);
+  border-bottom: 1px solid var(--gold);
+  transform: rotate(45deg);
+  animation: float 3s ease-in-out infinite;
+  /* And here */
+  animation-delay: 0.2s;
+}
+
+/* Map Grid */
+.map-grid {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 3rem;
+}
+
+.map-address {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 300;
+  color: var(--text-light);
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.map-time {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--gold);
+  margin-bottom: 0.5rem;
 }
 
 .scroll-arrow {
