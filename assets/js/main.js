@@ -29,9 +29,18 @@ function initializeContent() {
     // Info
     document.getElementById('event-date').textContent = CONFIG.event.dateFormatted;
     document.getElementById('venue-info').innerHTML = `
-    <strong>${CONFIG.venue.name}</strong><br>
-    ${CONFIG.venue.address}<br>
-    ${CONFIG.venue.city}
+    <div style="margin-bottom: 2rem">
+        <strong style="color: var(--gold); display: block; margin-bottom: 0.5rem">💒 Cérémonie</strong>
+        <strong>${CONFIG.ceremony.name}</strong><br>
+        ${CONFIG.ceremony.address}<br>
+        ${CONFIG.ceremony.city}
+    </div>
+    <div>
+        <strong style="color: var(--gold); display: block; margin-bottom: 0.5rem">🎉 Réception</strong>
+        <strong>${CONFIG.reception.name}</strong><br>
+        ${CONFIG.reception.address}<br>
+        ${CONFIG.reception.city}
+    </div>
   `;
     document.getElementById('dresscode-info').innerHTML = `
     <strong>${CONFIG.dressCode.title}</strong><br>
@@ -49,9 +58,10 @@ function initializeContent() {
     document.getElementById('program-timeline').innerHTML = programHTML;
 
     // Map
-    document.getElementById('venue-name').textContent = CONFIG.venue.name;
-    document.getElementById('map-embed').src = CONFIG.venue.mapEmbed;
-    document.getElementById('map-link').href = CONFIG.venue.mapUrl;
+    // Map
+    document.getElementById('venue-name').innerHTML = `${CONFIG.reception.name}<br><span style="font-size:0.8em; font-weight:normal">(${CONFIG.reception.city})</span>`;
+    document.getElementById('map-embed').src = CONFIG.reception.mapEmbed;
+    document.getElementById('map-link').href = CONFIG.reception.mapUrl;
 
     // Practical
     const practicalHTML = CONFIG.practical.map(item => `
