@@ -419,6 +419,158 @@ body {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════════
+   COUPLE SECTION
+   ═══════════════════════════════════════════════════════════════════════════════ */
+.couple-section {
+  padding: 6rem 1rem;
+  background: var(--white);
+  overflow: hidden;
+}
+
+.couple-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 2rem;
+  position: relative;
+}
+
+/* Blobs */
+.couple-blob-wrapper {
+  flex: 1;
+  min-width: 300px;
+  display: flex;
+  justify-content: center;
+  z-index: 2;
+}
+
+.blob-shape {
+  background: var(--cream);
+  padding: 3rem;
+  text-align: center;
+  max-width: 350px;
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.blob-1 {
+  border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%;
+  background: #f4f1ea;
+  /* Slightly darker cream */
+}
+
+.blob-2 {
+  border-radius: 58% 42% 30% 70% / 55% 55% 45% 45%;
+  background: #fbf7f0;
+  /* Lighter */
+}
+
+.couple-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.5rem;
+  color: var(--text);
+  margin-bottom: 1rem;
+}
+
+.couple-desc {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.9rem;
+  color: var(--text-light);
+  line-height: 1.6;
+  font-weight: 300;
+  margin-bottom: 1.5rem;
+}
+
+.social-links {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.social-link {
+  color: var(--gold);
+  font-size: 1.1rem;
+  transition: transform 0.2s ease;
+  text-decoration: none;
+}
+
+.social-link:hover {
+  transform: translateY(-2px);
+  color: var(--text);
+}
+
+/* Photos Animation Container */
+.couple-photos-container {
+  flex: 1.5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  position: relative;
+  min-width: 300px;
+  height: 400px;
+}
+
+.couple-line {
+  position: absolute;
+  top: 50%;
+  left: -20%;
+  right: -20%;
+  height: 1px;
+  background: var(--gold);
+  z-index: 0;
+  opacity: 0.5;
+}
+
+.photo-wrapper {
+  width: 200px;
+  height: 280px;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  border-radius: 2px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transition: transform 0.1s ease-out;
+  /* Smooth JS animation */
+  background: #ddd;
+  /* Placeholder color */
+}
+
+.photo-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Mobile Responsive */
+@media (max-width: 900px) {
+  .couple-container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .couple-photos-container {
+    order: -1;
+    /* Photos first on mobile */
+    gap: 1rem;
+    height: auto;
+    margin: 2rem 0;
+  }
+
+  .photo-wrapper {
+    width: 150px;
+    height: 200px;
+  }
+
+  .couple-line {
+    display: none;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
    INFO SECTION
    ═══════════════════════════════════════════════════════════════════════════════ */
 .info-section {

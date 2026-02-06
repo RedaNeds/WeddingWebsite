@@ -13,6 +13,7 @@ let responses = [];
 // ═══════════════════════════════════════════════════════════════════════════════
 document.addEventListener('DOMContentLoaded', () => {
     initializeContent();
+    initializeCoupleSection();
     initializeScrollReveal();
     initializeNavbar();
     loadResponses();
@@ -21,10 +22,17 @@ document.addEventListener('DOMContentLoaded', () => {
 function initializeContent() {
     // Hero
     document.getElementById('hero-date').textContent = CONFIG.event.dateFormatted;
-    document.getElementById('partner1').textContent = CONFIG.couple.partner1;
-    document.getElementById('partner2').textContent = CONFIG.couple.partner2;
+    // Names now handled in initializeCoupleSection for details, but kept here for Hero if needed
+    // Assuming Hero uses CONFIG.couple.partner1.name
+    // Check Config structure update: partner1 is now an object!
+    document.getElementById('partner1').textContent = CONFIG.couple.partner1.name;
+    document.getElementById('partner2').textContent = CONFIG.couple.partner2.name;
     document.getElementById('hero-subtitle').textContent = CONFIG.texts.heroSubtitle;
     document.getElementById('hero-invitation').textContent = CONFIG.texts.heroInvitation;
+
+    // Footer Names
+    document.getElementById('footer-names').textContent = `${CONFIG.couple.partner1.name} & ${CONFIG.couple.partner2.name}`;
+
 
     // Info
     document.getElementById('event-date').textContent = CONFIG.event.dateFormatted;
@@ -89,9 +97,69 @@ function initializeContent() {
     document.getElementById('rsvp-deadline').textContent = CONFIG.texts.rsvpDeadline;
 
     // Footer
-    document.getElementById('footer-names').textContent = `${CONFIG.couple.partner1} & ${CONFIG.couple.partner2}`;
     document.getElementById('footer-date').textContent = CONFIG.event.dateFormatted;
 }
+
+function initializeCoupleSection() {
+    // Populate Partner 1
+    document.getElementById('partner1-name').textContent = CONFIG.couple.partner1.name;
+    document.getElementById('partner1-desc').textContent = CONFIG.couple.partner1.description;
+    document.getElementById('partner1-img').src = CONFIG.couple.partner1.photo;
+
+    // Populate Partner 2
+    document.getElementById('partner2-name').textContent = CONFIG.couple.partner2.name;
+    document.getElementById('partner2-desc').textContent = CONFIG.couple.partner2.description;
+    document.getElementById('partner2-img').src = CONFIG.couple.partner2.photo;
+
+    // Helper to create social links
+    const createSocialLinks = (containerId, socialConfig) => {
+        const container = document.getElementById(containerId);
+        container.innerHTML = ''; // Clear existing
+        Object.entries(socialConfig).forEach(([platform, url]) => {
+            if (url) {
+                const a = document.createElement('a');
+                a.href = url;
+                a.className = 'social-link';
+                a.target = '_blank';
+                // Simple mapping for icons, can be expanded
+                const iconMap = {
+                    instagram: '<i class="fab fa-instagram"></i>',
+                    facebook: '<i class="fab fa-facebook"></i>',
+                    twitter: '<i class="fab fa-twitter"></i>'
+                };
+                a.innerHTML = iconMap[platform] || platform;
+                container.appendChild(a);
+            }
+        });
+    };
+
+    createSocialLinks('partner1-social', CONFIG.couple.partner1.social);
+    createSocialLinks('partner2-social', CONFIG.couple.partner2.social);
+
+    // Scroll Animation for Photos
+    const photoContainer = document.querySelector('.couple-photos-container');
+    const p1Photo = document.getElementById('photo-partner1');
+    const p2Photo = document.getElementById('photo-partner2');
+
+    window.addEventListener('scroll', () => {
+        if (!photoContainer) return;
+
+        const rect = photoContainer.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+
+        // Calculate progress (0 when entering view, 1 when centered)
+        if (rect.top < windowHeight && rect.bottom > 0) {
+            const centerOffset = (windowHeight / 2) - (rect.top + rect.height / 2);
+            // Move items closer as they reach center
+            // Max movement: 50px
+            const moveAmount = Math.min(50, Math.max(-50, centerOffset * 0.2));
+
+            p1Photo.style.transform = `translateX(${moveAmount}px) rotate(-3deg)`;
+            p2Photo.style.transform = `translateX(${-moveAmount}px) rotate(3deg)`;
+        }
+    });
+}
+
 
 // ═══════════════════════════════════════════════════════════════════════════════
 // SCROLL REVEAL ANIMATION

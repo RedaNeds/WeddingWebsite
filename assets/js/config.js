@@ -4,8 +4,24 @@
 const CONFIG = {
     // Informations des mariés
     couple: {
-        partner1: "Rania",
-        partner2: "Reda",
+        partner1: {
+            name: "Rania",
+            photo: "assets/images/rania.jpg", // Placez votre photo dans assets/images/
+            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Una orci auctor vitae nisl. Erat fringilla pellentesque amet tempus.",
+            social: {
+                instagram: "#",
+                facebook: "#"
+            }
+        },
+        partner2: {
+            name: "Reda",
+            photo: "assets/images/reda.jpg", // Placez votre photo dans assets/images/
+            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Una orci auctor vitae nisl. Erat fringilla pellentesque amet tempus.",
+            social: {
+                instagram: "#",
+                facebook: "#"
+            }
+        },
     },
 
     // Date et heure
