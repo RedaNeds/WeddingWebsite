@@ -17,20 +17,20 @@ const CONFIG = {
 
     // Lieu - À MODIFIER
     venue: {
-        name: "[Nom du lieu]",
-        address: "[Adresse complète]",
-        city: "[Ville]",
-        mapUrl: "https://maps.google.com/?q=Paris,France",
-        mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2624.9916256937595!2d2.292292615509614!3d48.85837007928746!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e66e2964e34e2d%3A0x8ddca9ee380ef7e0!2sTour%20Eiffel!5e0!3m2!1sfr!2sfr!4v1635959562000!5m2!1sfr!2sfr",
+        name: "Le Paradis D'Anjelina",
+        address: "12 Av. de Paris, 91790",
+        city: "Boissy-sous-Saint-Yon",
+        mapUrl: "https://www.google.com/maps?q=Le%20Paradis%20d%20Anjelina",
+        mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2640.8882785838528!2d2.2185260764469694!3d48.55453347129263!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e5d1eb88034751%3A0x58e8a27a5db5063!2sLe%20Paradis%20d&#39;Anjelina!5e0!3m2!1sfr!2sfr!4v1770413088757!5m2!1sfr!2sfr",
     },
 
     // Programme - À MODIFIER
     program: [
-        { time: "15h00", event: "Cérémonie", icon: "💒" },
-        { time: "16h30", event: "Vin d'honneur & Photos", icon: "🥂" },
-        { time: "18h00", event: "Cocktail", icon: "🍾" },
+        { time: "11h30", event: "Cérémonie", icon: "💒" },
+        { time: "17h30", event: "Vin d'honneur & Photos", icon: "🥂" },
+
         { time: "20h00", event: "Dîner", icon: "🍽️" },
-        { time: "23h00", event: "Soirée dansante", icon: "💃" },
+        { time: "22h00", event: "Soirée dansante", icon: "💃" },
     ],
 
     // Dress code - À MODIFIER
