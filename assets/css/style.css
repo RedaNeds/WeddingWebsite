@@ -224,6 +224,8 @@ body {
   text-transform: uppercase;
   color: var(--gold);
   margin-bottom: 2rem;
+  margin-top: 5vh;
+  /* Pushed down as requested */
 }
 
 .hero-names {
@@ -281,7 +283,8 @@ body {
   cursor: pointer;
   transition: all 0.4s ease;
   text-decoration: none;
-  margin-top: 2rem;
+  margin-top: 1rem;
+  /* Reduced from 2rem to move up */
 }
 
 .hero-button:hover {

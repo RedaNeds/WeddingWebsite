@@ -20,7 +20,8 @@ const CONFIG = {
         name: "Mairie du 18ème Arrondissement",
         address: "1 Place Jules Joffrin",
         city: "75018 Paris",
-        mapUrl: "https://maps.app.goo.gl/Mairie18", // Placeholder, will try to get real one or just standard
+        mapUrl: "https://www.google.com/maps?q=Mairie%20du%2018%C3%A8me%20Arrondissement",
+        mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2623.2667364536696!2d2.342188076510886!3d48.89131669837941!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e66e6079c6d66b%3A0x6b2e1a3d3c7e0c0!2sMairie%20du%2018e%20Arrondissement!5e0!3m2!1sfr!2sfr!4v1700000000000!5m2!1sfr!2sfr",
     },
 
     reception: {
