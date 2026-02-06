@@ -298,26 +298,33 @@
 
       <div class="guests-section" id="guests-section">
         <div class="form-group">
-          <label class="form-label">Nombre d'accompagnants</label>
-          <div class="guests-counter">
-            <button type="button" class="counter-btn" onclick="updateGuests(-1)" id="guests-minus">−</button>
-            <span class="counter-value" id="guests-value">0</span>
-            <button type="button" class="counter-btn" onclick="updateGuests(1)" id="guests-plus">+</button>
-          </div>
-          <input type="hidden" name="guests" id="guests" value="0">
+          <label class="form-label">Nombre d'adultes</label>
+          <input type="number" name="adults" class="form-input" min="1" value="1" id="adults">
         </div>
-
-        <div class="form-group guest-names-section" id="guest-names-section">
-          <label class="form-label">Noms des accompagnants</label>
-          <input type="text" name="guestNames" class="form-input" placeholder="Prénom et nom de chaque accompagnant"
-            id="guestNames">
-        </div>
-
         <div class="form-group">
-          <label class="form-label">Restrictions alimentaires (optionnel)</label>
-          <input type="text" name="dietary" class="form-input" placeholder="Allergies, régime végétarien, etc."
-            id="dietary">
+          <label class="form-label">Nombre d'enfants (2-12 ans)</label>
+          <input type="number" name="children" class="form-input" min="0" value="0" id="children">
         </div>
+        <div class="form-group">
+          <label class="form-label">Nombre de bébés (-2 ans)</label>
+          <input type="number" name="babies" class="form-input" min="0" value="0" id="babies">
+          <small style="color: var(--text-light); font-size: 0.8rem; display: block; margin-top: 0.2rem;">
+            (Chaises hautes prévues si besoin)
+          </small>
+        </div>
+      </div>
+
+      <div class="form-group guest-names-section" id="guest-names-section">
+        <label class="form-label">Noms des accompagnants</label>
+        <input type="text" name="guestNames" class="form-input" placeholder="Prénom et nom de chaque accompagnant"
+          id="guestNames">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Restrictions alimentaires (optionnel)</label>
+        <input type="text" name="dietary" class="form-input" placeholder="Allergies, régime végétarien, etc."
+          id="dietary">
+      </div>
       </div>
 
       <div class="form-group">

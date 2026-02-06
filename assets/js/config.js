@@ -63,10 +63,24 @@ const CONFIG = {
     },
 
     // Informations pratiques - À MODIFIER
-    practical: [
-        { icon: "🅿️", title: "Parking", text: "Parking gratuit sur place" },
-        { icon: "🚌", title: "Transports", text: "RER C : Arpajon puis VTC." },
-        { icon: "👶", title: "Enfants", text: "Vos enfants sont les bienvenus" },
+    heroImage: "assets/images/header-bg.jpg", // Photo de fond du header (à ajouter)
+
+    practicalInfo: [
+        {
+            title: "Dress Code",
+            content: "Tenue de soirée élégante. Nous vous invitons à éviter le blanc, réservé à la mariée.",
+            icon: "d" // Will be mapped to an icon class or character
+        },
+        {
+            title: "Enfants",
+            content: "Vos enfants sont les bienvenus. Une salle de jeux sera à leur disposition pour qu'ils puissent s'amuser en toute sécurité.",
+            icon: "c"
+        },
+        {
+            title: "Hébergement",
+            content: "Une liste d'hôtels à proximité est disponible sur demande pour faciliter votre séjour.",
+            icon: "h"
+        }
     ],
 
     // Textes

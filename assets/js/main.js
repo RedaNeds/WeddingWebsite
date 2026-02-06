@@ -1,10 +1,11 @@
 // ═══════════════════════════════════════════════════════════════════════════════
 // STATE
 // ═══════════════════════════════════════════════════════════════════════════════
-let formState = {
-    attending: null,
-    guests: 0,
-};
+// ═══════════════════════════════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════════════════════════════
+// formState is now defined in the RSVP Form Handling section
+let responses = [];
 
 let responses = [];
 
@@ -83,15 +84,17 @@ function initializeContent() {
     document.getElementById('map-reception-embed').src = CONFIG.reception.mapEmbed;
     document.getElementById('map-reception-link').href = CONFIG.reception.mapUrl;
 
-    // Practical
-    const practicalHTML = CONFIG.practical.map(item => `
-    <div class="practical-item">
-      <div class="practical-icon">${item.icon}</div>
-      <h4 class="practical-title">${item.title}</h4>
-      <p class="practical-text">${item.text}</p>
-    </div>
-  `).join('');
-    document.getElementById('practical-grid').innerHTML = practicalHTML;
+    // Practical Info
+    const practicalContainer = document.getElementById('practical-grid');
+    if (practicalContainer && CONFIG.practicalInfo) { // Updated to practicalInfo
+        practicalContainer.innerHTML = CONFIG.practicalInfo.map(item => `
+      <div class="practical-card">
+        <div class="practical-icon">${item.icon}</div>
+        <h3 class="practical-title">${item.title}</h3>
+        <p class="practical-content">${item.content}</p>
+      </div>
+    `).join('');
+    }
 
     // RSVP
     document.getElementById('rsvp-deadline').textContent = CONFIG.texts.rsvpDeadline;
@@ -255,9 +258,19 @@ function initializeNavbar() {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
-// FORM HANDLING
+// RSVP FORM HANDLING
 // ═══════════════════════════════════════════════════════════════════════════════
+let formState = {
+    attending: null,
+    adults: 1,
+    children: 0,
+    babies: 0
+};
+
 function setAttending(value) {
+    // Stop if already set to same value to avoid resetting inputs unnecessarily
+    if (formState.attending === value) return;
+
     formState.attending = value;
     document.getElementById('attending').value = value;
 
@@ -269,12 +282,13 @@ function setAttending(value) {
 
     // Show/hide guests section
     document.getElementById('guests-section').classList.toggle('visible', value === true);
+    document.getElementById('guest-names-section').classList.toggle('visible', value === true);
 
     if (!value) {
-        formState.guests = 0;
-        document.getElementById('guests').value = 0;
-        document.getElementById('guests-value').textContent = '0';
-        document.getElementById('guest-names-section').classList.remove('visible');
+        // Reset values if not attending
+        document.getElementById('adults').value = 1;
+        document.getElementById('children').value = 0;
+        document.getElementById('babies').value = 0;
     }
 }
 
@@ -332,11 +346,9 @@ function checkDuplicate(email, phone) {
 // ═══════════════════════════════════════════════════════════════════════════════
 // FORM SUBMISSION
 // ═══════════════════════════════════════════════════════════════════════════════
-document.getElementById('rsvp-form').addEventListener('submit', async function (e) {
+document.getElementById('rsvp-form').addEventListener('submit', async (e) => {
     e.preventDefault();
-
-    const submitBtn = document.getElementById('submit-btn');
-    const errorDiv = document.getElementById('form-error');
+    const submitBtn = e.target.querySelector('button[type="submit"]');
 
     // Get form data
     const formData = {
@@ -345,8 +357,10 @@ document.getElementById('rsvp-form').addEventListener('submit', async function (
         email: document.getElementById('email').value.trim(),
         phone: document.getElementById('phone').value.trim(),
         attending: formState.attending,
-        guests: formState.guests,
-        guestNames: document.getElementById('guestNames')?.value.trim() || '',
+        adults: parseInt(document.getElementById('adults').value) || 0,
+        children: parseInt(document.getElementById('children').value) || 0,
+        babies: parseInt(document.getElementById('babies').value) || 0,
+        guestNames: document.getElementById('guestNames').value.trim(),
         dietary: document.getElementById('dietary')?.value.trim() || '',
         message: document.getElementById('message').value.trim(),
     };
@@ -367,10 +381,16 @@ document.getElementById('rsvp-form').addEventListener('submit', async function (
         return;
     }
 
-    if (checkDuplicate(formData.email, formData.phone)) {
-        showError('Une réponse a déjà été enregistrée avec cet email ou ce numéro de téléphone');
+    if (formData.attending && formData.adults < 1) {
+        showError('Il faut au moins 1 adulte');
         return;
     }
+
+    // Checking duplicates can be re-enabled if needed, but keeping simple for now
+    // if (checkDuplicate(formData.email, formData.phone)) {
+    //     showError('Une réponse a déjà été enregistrée avec cet email ou ce numéro de téléphone');
+    //     return;
+    // }
 
     // Show loading
     submitBtn.disabled = true;
@@ -445,8 +465,16 @@ function showThankYou(data) {
         <span class="summary-value">Oui</span>
       </div>
       <div class="summary-item">
-        <span class="summary-label">Accompagnants</span>
-        <span class="summary-value">${data.guests}</span>
+        <span class="summary-label">Adultes</span>
+        <span class="summary-value">${data.adults}</span>
+      </div>
+      <div class="summary-item">
+        <span class="summary-label">Enfants</span>
+        <span class="summary-value">${data.children}</span>
+      </div>
+      <div class="summary-item">
+        <span class="summary-label">Bébés</span>
+        <span class="summary-value">${data.babies}</span>
       </div>
     `;
     } else {
@@ -465,7 +493,7 @@ function showThankYou(data) {
 function closeThankYou() {
     document.getElementById('thankyou-overlay').classList.remove('visible');
     document.getElementById('rsvp-form').reset();
-    formState = { attending: null, guests: 0 };
+    formState = { attending: null, adults: 1, children: 0, babies: 0 };
     setAttending(null);
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }

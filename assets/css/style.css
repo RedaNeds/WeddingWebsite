@@ -208,9 +208,12 @@ body {
   /* Increased bottom padding for scroll indicator */
   position: relative;
   background:
-    radial-gradient(ellipse at top, rgba(201, 169, 110, 0.08) 0%, transparent 50%),
-    radial-gradient(ellipse at bottom, rgba(232, 226, 217, 0.5) 0%, transparent 50%),
+    linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+    /* Overlay for readability */
+    url('../images/header-bg.jpg') no-repeat center/cover,
+    /* Placeholder image */
     var(--cream);
+  /* Fallback */
 }
 
 .hero-content {
