@@ -6,7 +6,7 @@
  * INSTRUCTIONS D'INSTALLATION :
  * 
  * 1. Créez un nouveau Google Sheet avec ces en-têtes en ligne 1 :
- *    Date | Prénom | Nom | Email | Téléphone | Présent | Accompagnants | Noms accompagnants | Restrictions | Message
+ *    Date | Prénom | Nom | Email | Téléphone | Présent | Adultes | Enfants | Bébés | Noms accompagnants | Restrictions | Message
  * 
  * 2. Dans Google Sheets : Extensions → Apps Script
  * 
@@ -43,11 +43,11 @@ function doPost(e) {
 
     // Parser les données JSON
     const data = JSON.parse(e.postData.contents);
-    
+
     // Ouvrir le spreadsheet
     const spreadsheet = SpreadsheetApp.openById(SPREADSHEET_ID);
     const sheet = spreadsheet.getSheetByName(SHEET_NAME);
-    
+
     if (!sheet) {
       return createResponse(false, 'Feuille non trouvée');
     }
@@ -69,7 +69,9 @@ function doPost(e) {
       data.email || '',                           // Email
       data.phone || '',                           // Téléphone
       data.attending ? 'Oui' : 'Non',            // Présent
-      data.attending ? (data.guests || 0) : 0,   // Nombre d'accompagnants
+      data.attending ? (data.adults || 1) : 0,   // Adultes
+      data.attending ? (data.children || 0) : 0, // Enfants
+      data.attending ? (data.babies || 0) : 0,   // Bébés
       data.guestNames || '',                      // Noms des accompagnants
       data.dietary || '',                         // Restrictions alimentaires
       data.message || ''                          // Message
@@ -101,11 +103,11 @@ function doGet(e) {
  */
 function checkDuplicate(sheet, email, phone) {
   const data = sheet.getDataRange().getValues();
-  
+
   for (let i = 1; i < data.length; i++) { // Commence à 1 pour ignorer l'en-tête
     const rowEmail = data[i][3]; // Colonne Email
     const rowPhone = data[i][4]; // Colonne Téléphone
-    
+
     if (email && rowEmail === email) {
       return true;
     }
@@ -113,7 +115,7 @@ function checkDuplicate(sheet, email, phone) {
       return true;
     }
   }
-  
+
   return false;
 }
 
@@ -126,7 +128,7 @@ function createResponse(success, message) {
     message: message,
     timestamp: new Date().toISOString()
   };
-  
+
   return ContentService
     .createTextOutput(JSON.stringify(response))
     .setMimeType(ContentService.MimeType.JSON);
@@ -138,11 +140,11 @@ function createResponse(success, message) {
  */
 function sendNotificationEmail(data) {
   const NOTIFICATION_EMAIL = 'votre@email.com'; // Votre email
-  
-  const subject = data.attending 
+
+  const subject = data.attending
     ? `🎉 Nouvelle confirmation RSVP : ${data.firstName} ${data.lastName}`
     : `😢 Déclin RSVP : ${data.firstName} ${data.lastName}`;
-  
+
   let body = `
 Nouvelle réponse RSVP reçue :
 
@@ -185,12 +187,12 @@ function getStats() {
   const spreadsheet = SpreadsheetApp.openById(SPREADSHEET_ID);
   const sheet = spreadsheet.getSheetByName(SHEET_NAME);
   const data = sheet.getDataRange().getValues();
-  
+
   let totalResponses = data.length - 1; // -1 pour l'en-tête
   let attending = 0;
   let notAttending = 0;
   let totalGuests = 0;
-  
+
   for (let i = 1; i < data.length; i++) {
     if (data[i][5] === 'Oui') {
       attending++;
@@ -199,14 +201,14 @@ function getStats() {
       notAttending++;
     }
   }
-  
+
   console.log('=== STATISTIQUES RSVP ===');
   console.log(`Total réponses : ${totalResponses}`);
   console.log(`Présents : ${attending}`);
   console.log(`Absents : ${notAttending}`);
   console.log(`Total invités (avec accompagnants) : ${totalGuests}`);
   console.log('========================');
-  
+
   return {
     totalResponses,
     attending,

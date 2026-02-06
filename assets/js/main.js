@@ -79,16 +79,16 @@ function initializeContent() {
     document.getElementById('map-reception-embed').src = CONFIG.reception.mapEmbed;
     document.getElementById('map-reception-link').href = CONFIG.reception.mapUrl;
 
-    // Practical Info
-    const practicalContainer = document.getElementById('practical-grid');
-    if (practicalContainer && CONFIG.practicalInfo) { // Updated to practicalInfo
-        practicalContainer.innerHTML = CONFIG.practicalInfo.map(item => `
-      <div class="practical-card">
-        <div class="practical-icon">${item.icon}</div>
-        <h3 class="practical-title">${item.title}</h3>
-        <p class="practical-content">${item.content}</p>
-      </div>
-    `).join('');
+    // Practical
+    if (CONFIG.practical) {
+        const practicalHTML = CONFIG.practical.map(item => `
+    <div class="practical-item">
+      <div class="practical-icon">${item.icon}</div>
+      <h4 class="practical-title">${item.title}</h4>
+      <p class="practical-text">${item.text}</p>
+    </div>
+  `).join('');
+        document.getElementById('practical-grid').innerHTML = practicalHTML;
     }
 
     // RSVP
@@ -408,7 +408,10 @@ document.getElementById('rsvp-form').addEventListener('submit', async (e) => {
         if (CONFIG.googleSheetsUrl) {
             await fetch(CONFIG.googleSheetsUrl, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                mode: 'no-cors', // Important for Google Apps Script
+                headers: {
+                    'Content-Type': 'text/plain' // Avoids preflight
+                },
                 body: JSON.stringify(formData),
             });
         }

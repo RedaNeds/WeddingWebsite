@@ -62,25 +62,13 @@ const CONFIG = {
         description: "Couleurs suggérées : tons neutres, pastels, or, champagne. Éviter le blanc.",
     },
 
-    // Informations pratiques - À MODIFIER
-    heroImage: "assets/images/header-bg.jpg", // Photo de fond du header (à ajouter)
+    // Informations pratiques
+    heroImage: "assets/images/header-bg.jpg",
 
-    practicalInfo: [
-        {
-            title: "Dress Code",
-            content: "Tenue de soirée élégante. Nous vous invitons à éviter le blanc, réservé à la mariée.",
-            icon: "d" // Will be mapped to an icon class or character
-        },
-        {
-            title: "Enfants",
-            content: "Vos enfants sont les bienvenus. Une salle de jeux sera à leur disposition pour qu'ils puissent s'amuser en toute sécurité.",
-            icon: "c"
-        },
-        {
-            title: "Hébergement",
-            content: "Une liste d'hôtels à proximité est disponible sur demande pour faciliter votre séjour.",
-            icon: "h"
-        }
+    practical: [
+        { icon: "🅿️", title: "Parking", text: "Parking gratuit sur place" },
+        { icon: "🚌", title: "Transports", text: "RER C : Arpajon puis VTC." },
+        { icon: "👶", title: "Enfants", text: "Vos enfants sont les bienvenus. Une salle de jeux sera à leur disposition pour qu'ils puissent s'amuser en toute sécurité." },
     ],
 
     // Textes
@@ -92,7 +80,7 @@ const CONFIG = {
 
     // Google Sheets integration (optionnel)
     // Remplacez par votre URL de script Google Apps Script
-    googleSheetsUrl: "",
+    googleSheetsUrl: "https://script.google.com/macros/s/AKfycbwSztdbIiM56oi8Y0rYrBK1pA9yh4RmZ4jgzyFj5ZOSYndJ1we2LdaS0OF9h4cgj1JE/exec",
 
     // Formspree integration (optionnel)
     // Créez un formulaire sur formspree.io et collez l'URL ici

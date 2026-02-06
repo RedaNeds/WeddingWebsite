@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,7 +11,7 @@
       padding: 0;
       box-sizing: border-box;
     }
-    
+
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: linear-gradient(135deg, #FAF8F5 0%, #E8E2D9 100%);
@@ -20,7 +21,7 @@
       justify-content: center;
       padding: 2rem;
     }
-    
+
     .container {
       background: white;
       border-radius: 16px;
@@ -30,25 +31,25 @@
       width: 100%;
       text-align: center;
     }
-    
+
     h1 {
       font-family: Georgia, serif;
       font-size: 1.8rem;
       color: #3D3D3D;
       margin-bottom: 0.5rem;
     }
-    
+
     .subtitle {
       color: #C9A96E;
       font-size: 0.9rem;
       margin-bottom: 2rem;
     }
-    
+
     .form-group {
       margin-bottom: 1.5rem;
       text-align: left;
     }
-    
+
     label {
       display: block;
       font-size: 0.8rem;
@@ -58,7 +59,7 @@
       text-transform: uppercase;
       letter-spacing: 0.05em;
     }
-    
+
     input {
       width: 100%;
       padding: 0.875rem 1rem;
@@ -67,12 +68,12 @@
       font-size: 1rem;
       transition: border-color 0.3s;
     }
-    
+
     input:focus {
       outline: none;
       border-color: #C9A96E;
     }
-    
+
     button {
       width: 100%;
       padding: 1rem;
@@ -86,22 +87,22 @@
       transition: background 0.3s;
       margin-top: 1rem;
     }
-    
+
     button:hover {
       background: #3D3D3D;
     }
-    
+
     .qr-container {
       margin-top: 2rem;
       padding-top: 2rem;
       border-top: 1px solid #E8E2D9;
       display: none;
     }
-    
+
     .qr-container.visible {
       display: block;
     }
-    
+
     #qrcode {
       display: inline-block;
       padding: 1rem;
@@ -109,23 +110,23 @@
       border: 2px solid #C9A96E;
       border-radius: 8px;
     }
-    
+
     #qrcode canvas {
       display: block;
     }
-    
+
     .download-btn {
       background: transparent;
       color: #C9A96E;
       border: 1px solid #C9A96E;
       margin-top: 1rem;
     }
-    
+
     .download-btn:hover {
       background: #C9A96E;
       color: white;
     }
-    
+
     .tips {
       margin-top: 2rem;
       padding: 1.5rem;
@@ -133,47 +134,43 @@
       border-radius: 8px;
       text-align: left;
     }
-    
+
     .tips h3 {
       font-size: 0.9rem;
       color: #C9A96E;
       margin-bottom: 1rem;
     }
-    
+
     .tips ul {
       font-size: 0.85rem;
       color: #6B6B6B;
       line-height: 1.8;
       padding-left: 1.2rem;
     }
-    
+
     .tips li {
       margin-bottom: 0.5rem;
     }
   </style>
 </head>
+
 <body>
   <div class="container">
     <h1>💒 QR Code Mariage</h1>
     <p class="subtitle">Reda & Rania • 16 Mai 2026</p>
-    
+
     <div class="form-group">
       <label>URL de votre site d'invitation</label>
-      <input 
-        type="url" 
-        id="urlInput" 
-        placeholder="https://votre-site.netlify.app"
-        value=""
-      >
+      <input type="url" id="urlInput" placeholder="https://votre-site.netlify.app" value="">
     </div>
-    
+
     <button onclick="generateQR()">Générer le QR Code</button>
-    
+
     <div class="qr-container" id="qrContainer">
       <div id="qrcode"></div>
       <button class="download-btn" onclick="downloadQR()">📥 Télécharger le QR Code</button>
     </div>
-    
+
     <div class="tips">
       <h3>💡 Conseils d'utilisation</h3>
       <ul>
@@ -188,27 +185,27 @@
 
   <!-- QRCode.js Library -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-  
+
   <script>
     let qrcode = null;
-    
+
     function generateQR() {
       const url = document.getElementById('urlInput').value.trim();
-      
+
       if (!url) {
         alert('Veuillez entrer l\'URL de votre site');
         return;
       }
-      
+
       if (!url.startsWith('http://') && !url.startsWith('https://')) {
         alert('L\'URL doit commencer par http:// ou https://');
         return;
       }
-      
+
       // Clear previous QR code
       const qrcodeContainer = document.getElementById('qrcode');
       qrcodeContainer.innerHTML = '';
-      
+
       // Generate new QR code
       qrcode = new QRCode(qrcodeContainer, {
         text: url,
@@ -218,31 +215,32 @@
         colorLight: '#FFFFFF',
         correctLevel: QRCode.CorrectLevel.H
       });
-      
+
       // Show container
       document.getElementById('qrContainer').classList.add('visible');
     }
-    
+
     function downloadQR() {
       const canvas = document.querySelector('#qrcode canvas');
       if (!canvas) {
         alert('Générez d\'abord un QR code');
         return;
       }
-      
+
       // Create download link
       const link = document.createElement('a');
       link.download = 'qrcode-mariage-reda-rania.png';
       link.href = canvas.toDataURL('image/png');
       link.click();
     }
-    
+
     // Generate QR on Enter key
-    document.getElementById('urlInput').addEventListener('keypress', function(e) {
+    document.getElementById('urlInput').addEventListener('keypress', function (e) {
       if (e.key === 'Enter') {
         generateQR();
       }
     });
   </script>
 </body>
+
 </html>
