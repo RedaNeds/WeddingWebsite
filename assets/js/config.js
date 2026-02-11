@@ -6,7 +6,7 @@ const CONFIG = {
     couple: {
         partner1: {
             name: "Rania",
-            photo: "assets/images/rania.jpg", // Placez votre photo dans assets/images/
+            photo: "assets/images/rania.png", // Placez votre photo dans assets/images/
             description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Una orci auctor vitae nisl. Erat fringilla pellentesque amet tempus.",
             social: {
                 instagram: "#",
@@ -15,7 +15,7 @@ const CONFIG = {
         },
         partner2: {
             name: "Reda",
-            photo: "assets/images/reda.jpg", // Placez votre photo dans assets/images/
+            photo: "assets/images/reda.png", // Placez votre photo dans assets/images/
             description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Una orci auctor vitae nisl. Erat fringilla pellentesque amet tempus.",
             social: {
                 instagram: "#",
@@ -60,7 +60,45 @@ const CONFIG = {
     dressCode: {
         title: "Tenue de soirée élégante",
         description: "Couleurs suggérées : tons neutres, pastels, or, champagne. Éviter le blanc.",
+        colors: [
+            { code: "#F5F5DC", name: "Beige" },
+            { code: "#E6D7B9", name: "Champagne" },
+            { code: "#D4B88A", name: "Or Doux" },
+            { code: "#ECCFCF", name: "Rose Poudré" },
+            { code: "#B0C4DE", name: "Bleu Acier" }
+        ]
     },
+
+    // Musique
+    music: {
+        enabled: true,
+        autoplay: true, // Les navigateurs bloquent souvent l'autoplay
+        source: "assets/music/bg-music.mp3", // Placez votre fichier mp3 ici
+        volume: 0.5
+    },
+
+    // Notre Histoire
+    story: [
+        { year: "2018", title: "La Rencontre", text: "C'était un soir d'été à Paris...", icon: "💘" },
+        { year: "2020", title: "Le Premier Voyage", text: "Notre première aventure ensemble à Rome.", icon: "✈️" },
+        { year: "2023", title: "La Demande", text: "Un 'Oui' pour la vie sous les étoiles.", icon: "💍" }
+    ],
+
+    // Galerie Photo (placez vos photos dans assets/images/)
+    gallery: [
+        "assets/images/gallery-1.jpg",
+        "assets/images/gallery-2.jpg",
+        "assets/images/gallery-3.jpg",
+        "assets/images/gallery-4.jpg"
+    ],
+
+    // FAQ
+    faq: [
+        { question: "Y a-t-il un parking ?", answer: "Oui, un parking privé et sécurisé est disponible gratuitement sur le lieu de réception." },
+        { question: "Les enfants sont-ils invités ?", answer: "Absolument ! Une salle de jeux et une animatrice seront là pour s'occuper des plus petits." },
+        { question: "Puis-je venir accompagné ?", answer: "L'invitation est valable pour le nombre de personnes indiqué sur votre faire-part." },
+        { question: "Où puis-je dormir ?", answer: "Nous avons négocié des tarifs préférentiels à l'Hôtel du Château (à 5min). Code promo : MARIAGE2026." }
+    ],
 
     // Informations pratiques
     heroImage: "assets/images/header-bg.jpg",
@@ -69,6 +107,7 @@ const CONFIG = {
         { icon: "🅿️", title: "Parking", text: "Parking gratuit sur place" },
         { icon: "🚌", title: "Transports", text: "RER C : Arpajon puis VTC." },
         { icon: "👶", title: "Enfants", text: "Vos enfants sont les bienvenus. Une salle de jeux sera à leur disposition pour qu'ils puissent s'amuser en toute sécurité." },
+        { icon: "🏨", title: "Hébergement", text: "Hôtels à proximité disponibles." }
     ],
 
     // Textes

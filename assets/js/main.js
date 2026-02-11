@@ -1,8 +1,17 @@
 // ═══════════════════════════════════════════════════════════════════════════════
 // STATE
 // ═══════════════════════════════════════════════════════════════════════════════
-// formState is now defined in the RSVP Form Handling section
 let responses = [];
+let formState = {
+    attending: null,
+    adults: 1,
+    children: 0,
+    babies: 0
+};
+let musicState = {
+    isPlaying: false,
+    audio: null
+};
 
 // ═══════════════════════════════════════════════════════════════════════════════
 // INITIALIZATION
@@ -13,14 +22,18 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeScrollReveal();
     initializeNavbar();
     loadResponses();
+
+    // New Features
+    initializeMusic();
+    initializeCalendar();
+    initializeStory();
+    initializeGallery();
+    initializeFAQ();
 });
 
 function initializeContent() {
     // Hero
     document.getElementById('hero-date').textContent = CONFIG.event.dateFormatted;
-    // Names now handled in initializeCoupleSection for details, but kept here for Hero if needed
-    // Assuming Hero uses CONFIG.couple.partner1.name
-    // Check Config structure update: partner1 is now an object!
     document.getElementById('partner1').textContent = CONFIG.couple.partner1.name;
     document.getElementById('partner2').textContent = CONFIG.couple.partner2.name;
     document.getElementById('hero-subtitle').textContent = CONFIG.texts.heroSubtitle;
@@ -28,7 +41,6 @@ function initializeContent() {
 
     // Footer Names
     document.getElementById('footer-names').textContent = `${CONFIG.couple.partner1.name} & ${CONFIG.couple.partner2.name}`;
-
 
     // Info
     document.getElementById('event-date').textContent = CONFIG.event.dateFormatted;
@@ -44,17 +56,26 @@ function initializeContent() {
         <span style="font-size: 0.9em">${CONFIG.reception.address}<br>${CONFIG.reception.city}</span>
     </div>
   `;
-    document.getElementById('dresscode-info').innerHTML = `
-    <strong>${CONFIG.dressCode.title}</strong><br>
-    ${CONFIG.dressCode.description}
-  `;
+
+    // Dress Code with Colors
+    let colorDots = '';
+    if (CONFIG.dressCode.colors) {
+        colorDots = CONFIG.dressCode.colors.map(color => `
+            <div class="color-swatch" style="background-color: ${color.code}" title="${color.name}"></div>
+        `).join('');
+    }
+
+    const dressCodeContainer = document.getElementById('dresscode-colors');
+    if (dressCodeContainer) {
+        dressCodeContainer.innerHTML = colorDots;
+    }
 
     // Start Countdown
     startCountdown();
 
     // Program
     const programHTML = CONFIG.program.map(item => `
-    <div class="program-item">
+    <div class="program-item reveal">
       <div class="program-time">${item.time}</div>
       <div class="program-dot"></div>
       <div class="program-event">${item.icon} ${item.event}</div>
@@ -62,8 +83,7 @@ function initializeContent() {
   `).join('');
     document.getElementById('program-timeline').innerHTML = programHTML;
 
-    // Maps - Split
-    // Ceremony
+    // Maps
     document.getElementById('ceremony-address').innerHTML = `
     <strong>${CONFIG.ceremony.name}</strong><br>
     ${CONFIG.ceremony.address}<br>${CONFIG.ceremony.city}
@@ -71,7 +91,6 @@ function initializeContent() {
     document.getElementById('map-ceremony-embed').src = CONFIG.ceremony.mapEmbed;
     document.getElementById('map-ceremony-link').href = CONFIG.ceremony.mapUrl;
 
-    // Reception
     document.getElementById('reception-address').innerHTML = `
     <strong>${CONFIG.reception.name}</strong><br>
     ${CONFIG.reception.address}<br>${CONFIG.reception.city}
@@ -82,7 +101,7 @@ function initializeContent() {
     // Practical
     if (CONFIG.practical) {
         const practicalHTML = CONFIG.practical.map(item => `
-    <div class="practical-item">
+    <div class="practical-item reveal">
       <div class="practical-icon">${item.icon}</div>
       <h4 class="practical-title">${item.title}</h4>
       <p class="practical-text">${item.text}</p>
@@ -112,14 +131,13 @@ function initializeCoupleSection() {
     // Helper to create social links
     const createSocialLinks = (containerId, socialConfig) => {
         const container = document.getElementById(containerId);
-        container.innerHTML = ''; // Clear existing
+        container.innerHTML = '';
         Object.entries(socialConfig).forEach(([platform, url]) => {
             if (url) {
                 const a = document.createElement('a');
                 a.href = url;
                 a.className = 'social-link';
                 a.target = '_blank';
-                // Simple mapping for icons, can be expanded
                 const iconMap = {
                     instagram: '<i class="fab fa-instagram"></i>',
                     facebook: '<i class="fab fa-facebook"></i>',
@@ -134,34 +152,192 @@ function initializeCoupleSection() {
     createSocialLinks('partner1-social', CONFIG.couple.partner1.social);
     createSocialLinks('partner2-social', CONFIG.couple.partner2.social);
 
-    // Scroll Animation for Photos
+    // Photos Animation
     const photoContainer = document.querySelector('.couple-photos-container');
     const p1Photo = document.getElementById('photo-partner1');
     const p2Photo = document.getElementById('photo-partner2');
 
     window.addEventListener('scroll', () => {
         if (!photoContainer) return;
-
         const rect = photoContainer.getBoundingClientRect();
         const windowHeight = window.innerHeight;
 
-        // Calculate progress (0 when entering view, 1 when centered)
         if (rect.top < windowHeight && rect.bottom > 0) {
             const centerOffset = (windowHeight / 2) - (rect.top + rect.height / 2);
-            // Move items closer as they reach center
-            // Max movement: 50px
             const moveAmount = Math.min(50, Math.max(-50, centerOffset * 0.2));
-
-            p1Photo.style.transform = `translateX(${moveAmount}px) rotate(-3deg)`;
-            p2Photo.style.transform = `translateX(${-moveAmount}px) rotate(3deg)`;
+            p1Photo.style.transform = `translateX(${-moveAmount}px) rotate(3deg)`;
+            p2Photo.style.transform = `translateX(${moveAmount}px) rotate(-3deg)`;
         }
     });
 }
 
+// ═══════════════════════════════════════════════════════════════════════════════
+// NEW FEATURES
+// ═══════════════════════════════════════════════════════════════════════════════
+
+function initializeMusic() {
+    if (!CONFIG.music || !CONFIG.music.enabled) return;
+
+    const audio = document.getElementById('bg-music');
+    const btn = document.getElementById('music-btn');
+    const container = document.getElementById('music-control');
+
+    if (!audio || !btn) return;
+
+    audio.src = CONFIG.music.source;
+    audio.volume = CONFIG.music.volume || 0.5;
+    musicState.audio = audio;
+
+    // Show button
+    container.style.display = 'flex';
+
+    btn.addEventListener('click', () => {
+        if (musicState.isPlaying) {
+            audio.pause();
+            musicState.isPlaying = false;
+            btn.innerHTML = '🎵';
+            btn.classList.remove('playing');
+        } else {
+            audio.play().then(() => {
+                musicState.isPlaying = true;
+                btn.innerHTML = '⏸';
+                btn.classList.add('playing');
+            }).catch(e => console.log('Playback failed', e));
+        }
+    });
+
+    if (CONFIG.music.autoplay) {
+        // Try autoplay (might be blocked)
+        audio.play().catch(() => {
+            console.log('Autoplay blocked');
+        });
+    }
+}
+
+function initializeCalendar() {
+    const btn = document.getElementById('addToCalendarBtn');
+    const dropdown = document.getElementById('calendarDropdown');
+
+    if (!btn || !dropdown) return;
+
+    // Google Calendar Link
+    // Format dates for Google Calendar (YYYYMMDDTHHMMSSZ)
+    // Needs proper parsing of config date strings which is hard without a library
+    // For now using a placeholder logic or assuming the user sets ISO dates in a real app
+    // Here we will use a generic link structure
+    const eventParams = new URLSearchParams({
+        action: 'TEMPLATE',
+        text: `Mariage ${CONFIG.couple.partner1.name} & ${CONFIG.couple.partner2.name}`,
+        dates: '20260516T113000/20260517T020000', // Hardcoded date based on config
+        details: CONFIG.texts.heroInvitation,
+        location: CONFIG.venue ? CONFIG.venue.address : CONFIG.ceremony.address,
+    });
+
+    const googleLink = `https://calendar.google.com/calendar/render?${eventParams.toString()}`;
+
+    dropdown.innerHTML = `
+        <a href="${googleLink}" target="_blank">Google Calendar</a>
+        <a href="#" onclick="downloadICS(event)">Apple / Outlook (.ics)</a>
+    `;
+
+    btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        dropdown.classList.toggle('visible');
+    });
+
+    document.addEventListener('click', () => {
+        dropdown.classList.remove('visible');
+    });
+}
+
+// Global scope for onclick
+window.downloadICS = function (e) {
+    e.preventDefault();
+    const icsContent = `BEGIN:VCALENDAR
+VERSION:2.0
+BEGIN:VEVENT
+URL:${window.location.href}
+DTSTART:20260516T113000
+DTEND:20260517T020000
+SUMMARY:Mariage ${CONFIG.couple.partner1.name} & ${CONFIG.couple.partner2.name}
+DESCRIPTION:${CONFIG.texts.heroInvitation}
+LOCATION:${CONFIG.ceremony.address}
+END:VEVENT
+END:VCALENDAR`;
+
+    const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+    const link = document.createElement('a');
+    link.href = window.URL.createObjectURL(blob);
+    link.setAttribute('download', 'mariage.ics');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+};
+
+function initializeStory() {
+    const container = document.getElementById('story-timeline');
+    if (!container || !CONFIG.story) return;
+
+    const html = CONFIG.story.map((item, index) => `
+        <div class="story-item reveal ${index % 2 === 0 ? 'left' : 'right'}">
+            <div class="story-content">
+                <div class="story-year">${item.year}</div>
+                <div class="story-icon">${item.icon}</div>
+                <h3 class="story-title">${item.title}</h3>
+                <p class="story-text">${item.text}</p>
+            </div>
+        </div>
+    `).join('');
+
+    container.innerHTML = html;
+}
+
+function initializeGallery() {
+    const container = document.getElementById('gallery-grid');
+    if (!container || !CONFIG.gallery) return;
+
+    const html = CONFIG.gallery.map(img => `
+        <div class="gallery-item reveal">
+            <img src="${img}" alt="Gallery Image" loading="lazy">
+        </div>
+    `).join('');
+
+    container.innerHTML = html;
+}
+
+function initializeFAQ() {
+    const container = document.getElementById('faq-container');
+    if (!container || !CONFIG.faq) return;
+
+    const html = CONFIG.faq.map(item => `
+        <div class="faq-item reveal">
+            <div class="faq-question">
+                <span>${item.question}</span>
+                <span class="faq-toggle">+</span>
+            </div>
+            <div class="faq-answer">
+                <p>${item.answer}</p>
+            </div>
+        </div>
+    `).join('');
+
+    container.innerHTML = html;
+
+    // Event listeners for accordion
+    document.querySelectorAll('.faq-question').forEach(item => {
+        item.addEventListener('click', () => {
+            const parent = item.parentElement;
+            parent.classList.toggle('active');
+            const toggle = item.querySelector('.faq-toggle');
+            toggle.textContent = parent.classList.contains('active') ? '-' : '+';
+        });
+    });
+}
 
 // ═══════════════════════════════════════════════════════════════════════════════
-// SCROLL REVEAL ANIMATION
+// UI & UTILS
 // ═══════════════════════════════════════════════════════════════════════════════
+
 function initializeScrollReveal() {
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -174,26 +350,15 @@ function initializeScrollReveal() {
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 }
 
-// ═══════════════════════════════════════════════════════════════════════════════
-// COUNTDOWN
-// ═══════════════════════════════════════════════════════════════════════════════
 function startCountdown() {
     const countdownEl = document.getElementById('countdown');
-    // Combine date and time properly (assuming format "16 mai 2026" and "11h30")
-    // Need to parse standard french date or hardcode for simplicity using ISO format if avail, but here we construct it.
-    // Ideally CONFIG should have an ISO date string, but we can parse "16 mai 2026"
-
-    const months = {
-        'janvier': 0, 'février': 1, 'mars': 2, 'avril': 3, 'mai': 4, 'juin': 5,
-        'juillet': 6, 'août': 7, 'septembre': 8, 'octobre': 9, 'novembre': 10, 'décembre': 11
-    };
+    // Simplified parsing assuming "16 mai 2026"
+    const months = { 'janvier': 0, 'février': 1, 'mars': 2, 'avril': 3, 'mai': 4, 'juin': 5, 'juillet': 6, 'août': 7, 'septembre': 8, 'octobre': 9, 'novembre': 10, 'décembre': 11 };
 
     const dateParts = CONFIG.event.date.toLowerCase().split(' ');
     const day = parseInt(dateParts[0]);
     const month = months[dateParts[1]];
     const year = parseInt(dateParts[2]);
-
-    // Parse time (e.g. "11h30")
     const timeParts = CONFIG.event.time.toLowerCase().split('h');
     const hour = parseInt(timeParts[0]);
     const minute = parseInt(timeParts[1] || 0);
@@ -215,32 +380,17 @@ function startCountdown() {
         const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
         countdownEl.innerHTML = `
-      <div class="countdown-item">
-        <span class="countdown-value">${days}</span>
-        <span class="countdown-label">Jours</span>
-      </div>
-      <div class="countdown-item">
-        <span class="countdown-value">${hours}</span>
-        <span class="countdown-label">Heures</span>
-      </div>
-      <div class="countdown-item">
-        <span class="countdown-value">${minutes}</span>
-        <span class="countdown-label">Minutes</span>
-      </div>
-      <div class="countdown-item">
-        <span class="countdown-value">${seconds}</span>
-        <span class="countdown-label">Secondes</span>
-      </div>
+      <div class="countdown-item"><span class="countdown-value">${days}</span><span class="countdown-label">Jours</span></div>
+      <div class="countdown-item"><span class="countdown-value">${hours}</span><span class="countdown-label">Heures</span></div>
+      <div class="countdown-item"><span class="countdown-value">${minutes}</span><span class="countdown-label">Minutes</span></div>
+      <div class="countdown-item"><span class="countdown-value">${seconds}</span><span class="countdown-label">Secondes</span></div>
     `;
     }
 
     update();
-    setInterval(update, 1000); // Update every second
+    setInterval(update, 1000);
 }
 
-// ═══════════════════════════════════════════════════════════════════════════════
-// NAVBAR SCROLL EFFECT
-// ═══════════════════════════════════════════════════════════════════════════════
 function initializeNavbar() {
     const navbar = document.getElementById('navbar');
     window.addEventListener('scroll', () => {
@@ -253,99 +403,48 @@ function initializeNavbar() {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
-// RSVP FORM HANDLING
+// FORM LOGIC
 // ═══════════════════════════════════════════════════════════════════════════════
-let formState = {
-    attending: null,
-    adults: 1,
-    children: 0,
-    babies: 0
-};
 
 function setAttending(value) {
-    // Stop if already set to same value to avoid resetting inputs unnecessarily
     if (formState.attending === value) return;
-
     formState.attending = value;
     document.getElementById('attending').value = value;
 
-    // Update UI
     document.getElementById('attending-yes').classList.toggle('selected', value === true);
     document.getElementById('attending-yes').classList.toggle('yes', value === true);
     document.getElementById('attending-no').classList.toggle('selected', value === false);
     document.getElementById('attending-no').classList.toggle('no', value === false);
 
-    // Show/hide guests section
     document.getElementById('guests-section').classList.toggle('visible', value === true);
     document.getElementById('guest-names-section').classList.toggle('visible', value === true);
 
     if (!value) {
-        // Reset values if not attending
         document.getElementById('adults').value = 1;
         document.getElementById('children').value = 0;
         document.getElementById('babies').value = 0;
     }
 }
 
-function updateGuests(delta) {
-    formState.guests = Math.max(0, Math.min(5, formState.guests + delta));
-    document.getElementById('guests').value = formState.guests;
-    document.getElementById('guests-value').textContent = formState.guests;
-
-    // Update buttons
-    document.getElementById('guests-minus').disabled = formState.guests <= 0;
-    document.getElementById('guests-plus').disabled = formState.guests >= 5;
-
-    // Show/hide guest names
-    document.getElementById('guest-names-section').classList.toggle('visible', formState.guests > 0);
-}
-
-// ═══════════════════════════════════════════════════════════════════════════════
-// STORAGE
-// ═══════════════════════════════════════════════════════════════════════════════
 function loadResponses() {
     try {
         const saved = localStorage.getItem('wedding-responses');
-        if (saved) {
-            responses = JSON.parse(saved);
-        }
-    } catch (e) {
-        console.log('No saved responses');
-    }
+        if (saved) responses = JSON.parse(saved);
+    } catch (e) { console.log('No saved responses'); }
 }
 
 function saveResponse(data) {
-    const newResponse = {
-        ...data,
-        id: Date.now(),
-        submittedAt: new Date().toISOString(),
-    };
+    const newResponse = { ...data, id: Date.now(), submittedAt: new Date().toISOString() };
     responses.push(newResponse);
-
-    try {
-        localStorage.setItem('wedding-responses', JSON.stringify(responses));
-    } catch (e) {
-        console.error('Storage error:', e);
-    }
-
+    try { localStorage.setItem('wedding-responses', JSON.stringify(responses)); }
+    catch (e) { console.error('Storage error:', e); }
     return newResponse;
 }
 
-function checkDuplicate(email, phone) {
-    return responses.some(r =>
-        (email && r.email === email) ||
-        (phone && r.phone === phone)
-    );
-}
-
-// ═══════════════════════════════════════════════════════════════════════════════
-// FORM SUBMISSION
-// ═══════════════════════════════════════════════════════════════════════════════
 document.getElementById('rsvp-form').addEventListener('submit', async (e) => {
     e.preventDefault();
     const submitBtn = e.target.querySelector('button[type="submit"]');
 
-    // Get form data
     const formData = {
         firstName: document.getElementById('firstName').value.trim(),
         lastName: document.getElementById('lastName').value.trim(),
@@ -360,77 +459,30 @@ document.getElementById('rsvp-form').addEventListener('submit', async (e) => {
         message: document.getElementById('message').value.trim(),
     };
 
-    // Validation
-    if (!formData.firstName || !formData.lastName) {
-        showError('Veuillez entrer votre nom complet');
-        return;
-    }
+    if (!formData.firstName || !formData.lastName) { showError('Veuillez entrer votre nom complet'); return; }
+    if (!formData.email && !formData.phone) { showError('Veuillez entrer un email ou un numéro de téléphone'); return; }
+    if (formData.attending === null) { showError('Veuillez indiquer si vous serez présent(e)'); return; }
 
-    if (!formData.email && !formData.phone) {
-        showError('Veuillez entrer un email ou un numéro de téléphone');
-        return;
-    }
-
-    if (formData.attending === null) {
-        showError('Veuillez indiquer si vous serez présent(e)');
-        return;
-    }
-
-    if (formData.attending && formData.adults < 1) {
-        showError('Il faut au moins 1 adulte');
-        return;
-    }
-
-    // Checking duplicates can be re-enabled if needed, but keeping simple for now
-    // if (checkDuplicate(formData.email, formData.phone)) {
-    //     showError('Une réponse a déjà été enregistrée avec cet email ou ce numéro de téléphone');
-    //     return;
-    // }
-
-    // Show loading
     submitBtn.disabled = true;
     submitBtn.textContent = 'Envoi en cours...';
     hideError();
 
     try {
-        // Save locally
         saveResponse(formData);
-
-        // Send to external service if configured
         if (CONFIG.formspreeUrl) {
-            await fetch(CONFIG.formspreeUrl, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(formData),
-            });
+            await fetch(CONFIG.formspreeUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(formData) });
         }
-
         if (CONFIG.googleSheetsUrl) {
-            await fetch(CONFIG.googleSheetsUrl, {
-                method: 'POST',
-                mode: 'no-cors', // Important for Google Apps Script
-                headers: {
-                    'Content-Type': 'text/plain' // Avoids preflight
-                },
-                body: JSON.stringify(formData),
-            });
+            await fetch(CONFIG.googleSheetsUrl, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify(formData) });
         }
-
-        // Show thank you
         showThankYou(formData);
-
     } catch (error) {
         console.error('Submission error:', error);
-        // Still show thank you since we saved locally
         showThankYou(formData);
     }
-
     submitBtn.disabled = false;
     submitBtn.textContent = 'Envoyer ma réponse';
 });
-
-// UI Helpers
-// ═══════════════════════════════════════════════════════════════════════════════
 
 function showError(message) {
     const errorDiv = document.getElementById('form-error');
@@ -448,40 +500,12 @@ function showThankYou(data) {
     const overlay = document.getElementById('thankyou-overlay');
     const summaryContent = document.getElementById('summary-content');
 
-    // Build summary
-    let html = `
-    <div class="summary-item">
-      <span class="summary-label">Nom</span>
-      <span class="summary-value">${data.firstName} ${data.lastName}</span>
-    </div>
-  `;
-
+    let html = `<div class="summary-item"><span class="summary-label">Nom</span><span class="summary-value">${data.firstName} ${data.lastName}</span></div>`;
     if (data.attending) {
-        html += `
-      <div class="summary-item">
-        <span class="summary-label">Présence</span>
-        <span class="summary-value">Oui</span>
-      </div>
-      <div class="summary-item">
-        <span class="summary-label">Adultes</span>
-        <span class="summary-value">${data.adults}</span>
-      </div>
-      <div class="summary-item">
-        <span class="summary-label">Enfants</span>
-        <span class="summary-value">${data.children}</span>
-      </div>
-      <div class="summary-item">
-        <span class="summary-label">Bébés</span>
-        <span class="summary-value">${data.babies}</span>
-      </div>
-    `;
+        html += `<div class="summary-item"><span class="summary-label">Présence</span><span class="summary-value">Oui</span></div>
+                 <div class="summary-item"><span class="summary-label">Adultes</span><span class="summary-value">${data.adults}</span></div>`;
     } else {
-        html += `
-      <div class="summary-item">
-        <span class="summary-label">Présence</span>
-        <span class="summary-value">Non</span>
-      </div>
-    `;
+        html += `<div class="summary-item"><span class="summary-label">Présence</span><span class="summary-value">Non</span></div>`;
     }
 
     summaryContent.innerHTML = html;

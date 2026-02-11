@@ -75,10 +75,15 @@
         Avec joie et émotion, nous serions honorés de votre présence pour partager ce moment unique de nos vies.
       </p>
 
-      <a href="#info" class="hero-button animate-fade-in-up animate-delay-4">
-        Voir les détails
-        <span>↓</span>
-      </a>
+      <div class="hero-actions animate-fade-in-up animate-delay-4"
+        style="display: flex; flex-direction: column; align-items: center; gap: 1rem;">
+        <a href="#info" class="hero-button">
+          Voir les détails
+          <span>↓</span>
+        </a>
+
+
+      </div>
     </div>
 
     <div class="scroll-indicator">
@@ -91,16 +96,16 @@
        INFO SECTION
        ═══════════════════════════════════════════════════════════════════════════════ -->
   <!-- ═══════════════════════════════════════════════════════════════════════════════
-       COUPLE SECTION
+       COUPLE SECTION 
        ═══════════════════════════════════════════════════════════════════════════════ -->
   <section id="couple" class="couple-section">
     <div class="couple-container">
-      <!-- Partner 1 (Left Text) -->
+      <!-- Partner 2 (Left Text) -->
       <div class="couple-blob-wrapper left reveal">
         <div class="blob-shape blob-1">
-          <h3 class="couple-name" id="partner1-name">Rania</h3>
-          <p class="couple-desc" id="partner1-desc">Description...</p>
-          <div class="social-links" id="partner1-social">
+          <h3 class="couple-name" id="partner2-name">Reda</h3>
+          <p class="couple-desc" id="partner2-desc">Le marié</p>
+          <div class="social-links" id="partner2-social">
             <!-- Injecté par JS -->
           </div>
         </div>
@@ -108,25 +113,45 @@
 
       <!-- Photos (Center Animation) -->
       <div class="couple-photos-container">
-        <div class="photo-wrapper left" id="photo-partner1">
-          <img src="" alt="Rania" id="partner1-img">
-        </div>
-        <div class="photo-wrapper right" id="photo-partner2">
+        <!-- Partner 2 Photo (Left) -->
+        <div class="photo-wrapper left" id="photo-partner2">
           <img src="" alt="Reda" id="partner2-img">
+        </div>
+        <!-- Partner 1 Photo (Right) -->
+        <div class="photo-wrapper right" id="photo-partner1">
+          <img src="" alt="Rania" id="partner1-img">
         </div>
         <div class="couple-line"></div>
       </div>
 
-      <!-- Partner 2 (Right Text) -->
+      <!-- Partner 1 (Right Text) -->
       <div class="couple-blob-wrapper right reveal">
         <div class="blob-shape blob-2">
-          <h3 class="couple-name" id="partner2-name">Reda</h3>
-          <p class="couple-desc" id="partner2-desc">Description...</p>
-          <div class="social-links" id="partner2-social">
+          <h3 class="couple-name" id="partner1-name">Rania</h3>
+          <p class="couple-desc" id="partner1-desc">La mariée</p>
+          <div class="social-links" id="partner1-social">
             <!-- Injecté par JS -->
           </div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════════
+       OUR STORY SECTION (New)
+       ═══════════════════════════════════════════════════════════════════════════════ -->
+  <section class="story-section" id="story">
+    <h2 class="section-title reveal">Notre Histoire</h2>
+    <div class="section-subtitle reveal">Comment tout a commencé</div>
+
+    <div class="ornament reveal">
+      <span class="ornament-line"></span>
+      <span class="ornament-diamond"></span>
+      <span class="ornament-line"></span>
+    </div>
+
+    <div class="story-timeline reveal" id="story-timeline">
+      <!-- Injecté par JS -->
     </div>
   </section>
 
@@ -146,6 +171,15 @@
         <h3 class="info-card-title">Date</h3>
         <p class="info-card-content">
           <strong id="event-date">Samedi 16 Mai 2026</strong>
+          <br>
+        <div class="calendar-wrapper" style="margin-top: 1rem;">
+          <button class="calendar-btn-inline" id="addToCalendarBtn">
+            📅 Ajouter au calendrier
+          </button>
+          <div class="calendar-dropdown" id="calendarDropdown">
+            <!-- Injected by JS -->
+          </div>
+        </div>
         </p>
       </div>
 
@@ -164,7 +198,13 @@
         <h3 class="info-card-title">Dress Code</h3>
         <p class="info-card-content" id="dresscode-info">
           <strong>Tenue de soirée élégante</strong><br>
+        <div id="dresscode-colors" class="dresscode-colors"
+          style="margin-top: 10px; display: flex; justify-content: center; gap: 10px;">
+          <!-- Colors injected by JS -->
+        </div>
+        <span style="display: block; margin-top: 10px;">
           Couleurs suggérées : tons neutres, pastels, or, champagne. Éviter le blanc.
+        </span>
         </p>
       </div>
     </div>
@@ -184,6 +224,24 @@
     </div>
 
     <div class="program-timeline reveal" id="program-timeline">
+      <!-- Injecté par JS -->
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════════
+       GALLERY SECTION (New)
+       ═══════════════════════════════════════════════════════════════════════════════ -->
+  <section class="gallery-section" id="gallery">
+    <h2 class="section-title reveal">Nos Souvenirs</h2>
+    <div class="section-subtitle reveal">Quelques moments précieux</div>
+
+    <div class="ornament reveal">
+      <span class="ornament-line"></span>
+      <span class="ornament-diamond"></span>
+      <span class="ornament-line"></span>
+    </div>
+
+    <div class="gallery-grid reveal" id="gallery-grid">
       <!-- Injecté par JS -->
     </div>
   </section>
@@ -239,6 +297,24 @@
     </div>
 
     <div class="practical-grid reveal" id="practical-grid">
+      <!-- Injecté par JS -->
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════════
+       FAQ SECTION (New)
+       ═══════════════════════════════════════════════════════════════════════════════ -->
+  <section class="faq-section" id="faq">
+    <h2 class="section-title reveal">Questions Fréquentes</h2>
+    <div class="section-subtitle reveal">Tout ce qu'il faut savoir</div>
+
+    <div class="ornament reveal">
+      <span class="ornament-line"></span>
+      <span class="ornament-diamond"></span>
+      <span class="ornament-line"></span>
+    </div>
+
+    <div class="faq-container reveal" id="faq-container">
       <!-- Injecté par JS -->
     </div>
   </section>
@@ -371,6 +447,18 @@
       </button>
     </div>
   </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════════
+       MUSIC CONTROL
+       ═══════════════════════════════════════════════════════════════════════════════ -->
+  <div id="music-control" class="music-control">
+    <button id="music-btn" class="music-btn" aria-label="Play/Pause Music">
+      🎵
+    </button>
+  </div>
+  <audio id="bg-music" loop>
+    <source src="" type="audio/mpeg">
+  </audio>
 
   <!-- ═══════════════════════════════════════════════════════════════════════════════
        JAVASCRIPT
