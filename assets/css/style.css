@@ -176,6 +176,7 @@ body {
   gap: 2rem;
   max-width: 1200px;
   margin: 0 auto;
+  flex-wrap: wrap;
 }
 
 .nav-link {
@@ -224,7 +225,7 @@ body {
   background:
     linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
     /* Lighter overlay */
-    url('../images/header-bg.jpg') no-repeat center top/cover,
+    url('../images/new-header-bg.jpg') no-repeat center top/cover,
     var(--cream);
   /* Fallback */
   /* Fallback */
@@ -591,8 +592,7 @@ body {
   }
 
   .couple-photos-container {
-    order: -1;
-    /* Photos first on mobile */
+    /* order: -1; Removed so Reda block comes first */
     gap: 1rem;
     height: auto;
     margin: 2rem 0;

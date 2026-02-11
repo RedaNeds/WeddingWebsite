@@ -19,7 +19,6 @@ let musicState = {
 document.addEventListener('DOMContentLoaded', () => {
     initializeContent();
     initializeCoupleSection();
-    initializeScrollReveal();
     initializeNavbar();
     loadResponses();
 
@@ -29,6 +28,9 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeStory();
     initializeGallery();
     initializeFAQ();
+
+    // Initialize Scroll Reveal last to catch all new elements
+    initializeScrollReveal();
 });
 
 function initializeContent() {
@@ -164,7 +166,7 @@ function initializeCoupleSection() {
 
         if (rect.top < windowHeight && rect.bottom > 0) {
             const centerOffset = (windowHeight / 2) - (rect.top + rect.height / 2);
-            const moveAmount = Math.min(50, Math.max(-50, centerOffset * 0.2));
+            const moveAmount = Math.min(15, Math.max(-15, centerOffset * 0.1));
             p1Photo.style.transform = `translateX(${-moveAmount}px) rotate(3deg)`;
             p2Photo.style.transform = `translateX(${moveAmount}px) rotate(-3deg)`;
         }

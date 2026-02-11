@@ -14,6 +14,8 @@
   <meta property="og:type" content="website">
 
   <title>Reda & Rania - Notre Mariage</title>
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>❤️</text></svg>">
 
   <!-- Preconnect for fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -37,7 +39,9 @@
   <nav class="nav-fixed" id="navbar">
     <div class="nav-inner">
       <a href="#hero" class="nav-link">Accueil</a>
-      <a href="#info" class="nav-link">Informations</a>
+      <a href="#story" class="nav-link">Histoire</a>
+      <a href="#info" class="nav-link">Notre Jour</a>
+      <a href="#program" class="nav-link">Programme</a>
       <a href="#rsvp" class="nav-link">RSVP</a>
     </div>
   </nav>
@@ -81,8 +85,6 @@
           Voir les détails
           <span>↓</span>
         </a>
-
-
       </div>
     </div>
 
@@ -92,9 +94,6 @@
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════════════════════════════════════════════
-       INFO SECTION
-       ═══════════════════════════════════════════════════════════════════════════════ -->
   <!-- ═══════════════════════════════════════════════════════════════════════════════
        COUPLE SECTION 
        ═══════════════════════════════════════════════════════════════════════════════ -->
@@ -138,7 +137,7 @@
   </section>
 
   <!-- ═══════════════════════════════════════════════════════════════════════════════
-       OUR STORY SECTION (New)
+       OUR STORY SECTION
        ═══════════════════════════════════════════════════════════════════════════════ -->
   <section class="story-section" id="story">
     <h2 class="section-title reveal">Notre Histoire</h2>
@@ -155,6 +154,27 @@
     </div>
   </section>
 
+  <!-- ═══════════════════════════════════════════════════════════════════════════════
+       GALLERY SECTION
+       ═══════════════════════════════════════════════════════════════════════════════ -->
+  <section class="gallery-section" id="gallery">
+    <h2 class="section-title reveal">Nos Souvenirs</h2>
+    <div class="section-subtitle reveal">Quelques moments précieux</div>
+
+    <div class="ornament reveal">
+      <span class="ornament-line"></span>
+      <span class="ornament-diamond"></span>
+      <span class="ornament-line"></span>
+    </div>
+
+    <div class="gallery-grid reveal" id="gallery-grid">
+      <!-- Injecté par JS -->
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════════
+       INFO SECTION (Notre Jour)
+       ═══════════════════════════════════════════════════════════════════════════════ -->
   <section id="info" class="info-section">
     <h2 class="section-title reveal">Notre Jour</h2>
     <div class="section-subtitle reveal">Les détails de la célébration</div>
@@ -213,7 +233,7 @@
   <!-- ═══════════════════════════════════════════════════════════════════════════════
        PROGRAM SECTION
        ═══════════════════════════════════════════════════════════════════════════════ -->
-  <section class="program-section">
+  <section class="program-section" id="program">
     <h2 class="section-title reveal">Programme</h2>
     <div class="section-subtitle reveal">Déroulement de la journée</div>
 
@@ -224,97 +244,6 @@
     </div>
 
     <div class="program-timeline reveal" id="program-timeline">
-      <!-- Injecté par JS -->
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════════════════════════════════════
-       GALLERY SECTION (New)
-       ═══════════════════════════════════════════════════════════════════════════════ -->
-  <section class="gallery-section" id="gallery">
-    <h2 class="section-title reveal">Nos Souvenirs</h2>
-    <div class="section-subtitle reveal">Quelques moments précieux</div>
-
-    <div class="ornament reveal">
-      <span class="ornament-line"></span>
-      <span class="ornament-diamond"></span>
-      <span class="ornament-line"></span>
-    </div>
-
-    <div class="gallery-grid reveal" id="gallery-grid">
-      <!-- Injecté par JS -->
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════════════════════════════════════
-       MAP SECTION
-       ═══════════════════════════════════════════════════════════════════════════════ -->
-  <section class="map-section">
-    <h2 class="section-title reveal">Nous rejoindre</h2>
-    <div class="section-subtitle reveal">Les lieux des festivités</div>
-
-    <div class="map-grid">
-      <!-- Cérémonie -->
-      <div class="map-container reveal" id="map-ceremony">
-        <h3 class="info-card-title">Cérémonie</h3>
-        <p class="map-time">11h30</p>
-        <div class="map-address" id="ceremony-address">
-          <!-- Injecté par JS -->
-        </div>
-        <iframe id="map-ceremony-embed" class="map-embed" src="" allowfullscreen loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"></iframe>
-        <a id="map-ceremony-link" href="" target="_blank" rel="noopener noreferrer" class="map-button">
-          📍 Y aller
-        </a>
-      </div>
-
-      <!-- Réception -->
-      <div class="map-container reveal" id="map-reception">
-        <h3 class="info-card-title">Réception</h3>
-        <p class="map-time">17h30</p>
-        <div class="map-address" id="reception-address">
-          <!-- Injecté par JS -->
-        </div>
-        <iframe id="map-reception-embed" class="map-embed" src="" allowfullscreen loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"></iframe>
-        <a id="map-reception-link" href="" target="_blank" rel="noopener noreferrer" class="map-button">
-          📍 Y aller
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════════════════════════════════════
-       PRACTICAL INFO SECTION
-       ═══════════════════════════════════════════════════════════════════════════════ -->
-  <section class="practical-section">
-    <h2 class="section-title reveal">Informations Pratiques</h2>
-
-    <div class="ornament reveal">
-      <span class="ornament-line"></span>
-      <span class="ornament-diamond"></span>
-      <span class="ornament-line"></span>
-    </div>
-
-    <div class="practical-grid reveal" id="practical-grid">
-      <!-- Injecté par JS -->
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════════════════════════════════════
-       FAQ SECTION (New)
-       ═══════════════════════════════════════════════════════════════════════════════ -->
-  <section class="faq-section" id="faq">
-    <h2 class="section-title reveal">Questions Fréquentes</h2>
-    <div class="section-subtitle reveal">Tout ce qu'il faut savoir</div>
-
-    <div class="ornament reveal">
-      <span class="ornament-line"></span>
-      <span class="ornament-diamond"></span>
-      <span class="ornament-line"></span>
-    </div>
-
-    <div class="faq-container reveal" id="faq-container">
       <!-- Injecté par JS -->
     </div>
   </section>
@@ -413,6 +342,79 @@
         Envoyer ma réponse
       </button>
     </form>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════════
+       MAP SECTION
+       ═══════════════════════════════════════════════════════════════════════════════ -->
+  <section class="map-section">
+    <h2 class="section-title reveal">Nous rejoindre</h2>
+    <div class="section-subtitle reveal">Les lieux des festivités</div>
+
+    <div class="map-grid">
+      <!-- Cérémonie -->
+      <div class="map-container reveal" id="map-ceremony">
+        <h3 class="info-card-title">Cérémonie</h3>
+        <p class="map-time">11h30</p>
+        <div class="map-address" id="ceremony-address">
+          <!-- Injecté par JS -->
+        </div>
+        <iframe id="map-ceremony-embed" class="map-embed" src="" allowfullscreen loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <a id="map-ceremony-link" href="" target="_blank" rel="noopener noreferrer" class="map-button">
+          📍 Y aller
+        </a>
+      </div>
+
+      <!-- Réception -->
+      <div class="map-container reveal" id="map-reception">
+        <h3 class="info-card-title">Réception</h3>
+        <p class="map-time">17h30</p>
+        <div class="map-address" id="reception-address">
+          <!-- Injecté par JS -->
+        </div>
+        <iframe id="map-reception-embed" class="map-embed" src="" allowfullscreen loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <a id="map-reception-link" href="" target="_blank" rel="noopener noreferrer" class="map-button">
+          📍 Y aller
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════════
+       PRACTICAL INFO SECTION
+       ═══════════════════════════════════════════════════════════════════════════════ -->
+  <section class="practical-section">
+    <h2 class="section-title reveal">Informations Pratiques</h2>
+
+    <div class="ornament reveal">
+      <span class="ornament-line"></span>
+      <span class="ornament-diamond"></span>
+      <span class="ornament-line"></span>
+    </div>
+
+    <div class="practical-grid reveal" id="practical-grid">
+      <!-- Injecté par JS -->
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════════
+       FAQ SECTION
+       ═══════════════════════════════════════════════════════════════════════════════ -->
+  <section class="faq-section" id="faq">
+    <h2 class="section-title reveal">Questions Fréquentes</h2>
+    <div class="section-subtitle reveal">Tout ce qu'il faut savoir</div>
+
+    <div class="ornament reveal">
+      <span class="ornament-line"></span>
+      <span class="ornament-diamond"></span>
+      <span class="ornament-line"></span>
+    </div>
+
+    <div class="faq-container reveal" id="faq-container">
+      <!-- Injecté par JS -->
+    </div>
   </section>
 
   <!-- ═══════════════════════════════════════════════════════════════════════════════
