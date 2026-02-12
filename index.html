@@ -8,12 +8,12 @@
   <meta name="theme-color" content="#C9A96E">
 
   <!-- Social Media Sharing -->
-  <meta property="og:title" content="Reda & Rania - Notre Mariage">
+  <meta property="og:title" content="Reda & Rania - Notre mariage">
   <meta property="og:description"
     content="Invitation au mariage de Reda & Rania - 16 mai 2026. RSVP et détails de la cérémonie.">
   <meta property="og:type" content="website">
 
-  <title>Reda & Rania - Notre Mariage</title>
+  <title>Reda & Rania - Notre mariage</title>
   <link rel="icon"
     href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>❤️</text></svg>">
 
@@ -140,7 +140,7 @@
        OUR STORY SECTION
        ═══════════════════════════════════════════════════════════════════════════════ -->
   <section class="story-section" id="story">
-    <h2 class="section-title reveal">Notre Histoire</h2>
+    <h2 class="section-title reveal">Notre histoire</h2>
     <div class="section-subtitle reveal">Comment tout a commencé</div>
 
     <div class="ornament reveal">
@@ -158,8 +158,7 @@
        GALLERY SECTION
        ═══════════════════════════════════════════════════════════════════════════════ -->
   <section class="gallery-section" id="gallery">
-    <h2 class="section-title reveal">Nos Souvenirs</h2>
-    <div class="section-subtitle reveal">Quelques moments précieux</div>
+    <h2 class="section-title reveal">Quelques moments précieux</h2>
 
     <div class="ornament reveal">
       <span class="ornament-line"></span>
@@ -173,10 +172,61 @@
   </section>
 
   <!-- ═══════════════════════════════════════════════════════════════════════════════
+       ANECDOTES SECTION
+       ═══════════════════════════════════════════════════════════════════════════════ -->
+  <section class="anecdote-section" id="anecdotes" style="background-color: var(--white); padding: 4rem 1rem;">
+    <div class="container" style="max-width: 800px; margin: 0 auto; text-align: center;">
+      <h2 class="section-title reveal">Vos souvenirs</h2>
+
+      <div class="ornament reveal">
+        <span class="ornament-line"></span>
+        <span class="ornament-diamond"></span>
+        <span class="ornament-line"></span>
+      </div>
+
+      <div class="reveal"
+        style="font-family: 'Montserrat', sans-serif; line-height: 1.8; color: var(--text-color); margin-bottom: 2rem;">
+        <p style="margin-bottom: 1rem;">
+          Nous sommes convaincus que vous détenez des souvenirs que nous avons peut-être oubliés…
+          ou que nous espérons très fort que vous avez oubliés. 🤭
+        </p>
+        <p style="margin-bottom: 1rem;">
+          Racontez un moment vécu avec l’un de nous, ou avec nous deux :<br>
+          drôle, touchant, inattendu… <strong>tout est permis (ou presque)</strong>.
+        </p>
+        <p style="margin-bottom: 1rem;">
+          Le jour du mariage, certaines anecdotes pourraient bien être partagées pour le plus grand plaisir de tous.
+        </p>
+        <p style="font-style: italic; color: var(--gold); font-weight: bold;">
+          Alors à vos claviers ! On a déjà hâte de vous lire ! 💌
+        </p>
+      </div>
+
+      <form id="anecdote-form" class="reveal"
+        style="display: flex; flex-direction: column; gap: 1.5rem; background: var(--off-white); padding: 2rem; border-radius: 8px; border: 1px solid var(--gold-light);">
+        <div class="form-group">
+          <input type="text" id="anecdote-name" name="name" class="form-input" placeholder="Votre prénom et nom"
+            required
+            style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 4px; font-family: 'Montserrat', sans-serif;">
+        </div>
+        <div class="form-group">
+          <textarea id="anecdote-message" name="message" class="form-textarea"
+            placeholder="Votre anecdote croustillante..." required
+            style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 4px; min-height: 150px; font-family: 'Montserrat', sans-serif;"></textarea>
+        </div>
+        <button type="submit" class="submit-button"
+          style="align-self: center; padding: 0.8rem 2rem; background: var(--gold); color: white; border: none; border-radius: 4px; cursor: pointer; font-family: 'Montserrat', sans-serif; text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s ease;">Envoyer
+          mon anecdote</button>
+        <div id="anecdote-status" style="margin-top: 1rem; font-size: 0.9rem;"></div>
+      </form>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════════
        INFO SECTION (Notre Jour)
        ═══════════════════════════════════════════════════════════════════════════════ -->
   <section id="info" class="info-section">
-    <h2 class="section-title reveal">Notre Jour</h2>
+    <h2 class="section-title reveal">Notre jour</h2>
     <div class="section-subtitle reveal">Les détails de la célébration</div>
 
     <div class="ornament reveal">
@@ -215,16 +265,10 @@
 
       <div class="info-card reveal">
         <div class="info-icon">👔</div>
-        <h3 class="info-card-title">Dress Code</h3>
+        <h3 class="info-card-title">Dress code</h3>
         <p class="info-card-content" id="dresscode-info">
-          <strong>Tenue de soirée élégante</strong><br>
-        <div id="dresscode-colors" class="dresscode-colors"
-          style="margin-top: 10px; display: flex; justify-content: center; gap: 10px;">
-          <!-- Colors injected by JS -->
-        </div>
-        <span style="display: block; margin-top: 10px;">
-          Couleurs suggérées : tons neutres, pastels, or, champagne. Éviter le blanc.
-        </span>
+          <strong>Venez comme vous êtes, évitez juste le blanc.</strong><br>
+
         </p>
       </div>
     </div>
@@ -301,6 +345,26 @@
         <input type="hidden" name="attending" id="attending" value="">
       </div>
 
+      <div class="form-group events-section" id="events-section">
+        <label class="form-label">Je serai présent(e) à : *</label>
+        <div class="checkbox-group">
+          <label class="checkbox-label">
+            <input type="checkbox" name="event-ceremony" id="event-ceremony" value="ceremony">
+            <span class="checkbox-custom"></span>
+            Cérémonie (11h30)
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" name="event-reception" id="event-reception" value="reception">
+            <span class="checkbox-custom"></span>
+            Soirée (17h45)
+          </label>
+        </div>
+      </div>
+
+
+
+
+
       <div class="guests-section" id="guests-section">
         <div class="form-group">
           <label class="form-label">Nombre d'adultes</label>
@@ -313,9 +377,6 @@
         <div class="form-group">
           <label class="form-label">Nombre de bébés (-2 ans)</label>
           <input type="number" name="babies" class="form-input" min="0" value="0" id="babies">
-          <small style="color: var(--text-light); font-size: 0.8rem; display: block; margin-top: 0.2rem;">
-            (Chaises hautes prévues si besoin)
-          </small>
         </div>
       </div>
 
@@ -369,7 +430,7 @@
       <!-- Réception -->
       <div class="map-container reveal" id="map-reception">
         <h3 class="info-card-title">Réception</h3>
-        <p class="map-time">17h30</p>
+        <p class="map-time">18h00</p>
         <div class="map-address" id="reception-address">
           <!-- Injecté par JS -->
         </div>
@@ -386,7 +447,7 @@
        PRACTICAL INFO SECTION
        ═══════════════════════════════════════════════════════════════════════════════ -->
   <section class="practical-section">
-    <h2 class="section-title reveal">Informations Pratiques</h2>
+    <h2 class="section-title reveal">Informations pratiques</h2>
 
     <div class="ornament reveal">
       <span class="ornament-line"></span>
@@ -403,7 +464,7 @@
        FAQ SECTION
        ═══════════════════════════════════════════════════════════════════════════════ -->
   <section class="faq-section" id="faq">
-    <h2 class="section-title reveal">Questions Fréquentes</h2>
+    <h2 class="section-title reveal">Questions fréquentes</h2>
     <div class="section-subtitle reveal">Tout ce qu'il faut savoir</div>
 
     <div class="ornament reveal">

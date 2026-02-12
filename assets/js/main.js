@@ -28,6 +28,8 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeStory();
     initializeGallery();
     initializeFAQ();
+    initializeAnecdotes();
+    initializeAnecdotes();
 
     // Initialize Scroll Reveal last to catch all new elements
     initializeScrollReveal();
@@ -134,6 +136,7 @@ function initializeCoupleSection() {
     const createSocialLinks = (containerId, socialConfig) => {
         const container = document.getElementById(containerId);
         container.innerHTML = '';
+        if (!socialConfig) return;
         Object.entries(socialConfig).forEach(([platform, url]) => {
             if (url) {
                 const a = document.createElement('a');
@@ -419,12 +422,15 @@ function setAttending(value) {
     document.getElementById('attending-no').classList.toggle('no', value === false);
 
     document.getElementById('guests-section').classList.toggle('visible', value === true);
+    document.getElementById('events-section').classList.toggle('visible', value === true);
     document.getElementById('guest-names-section').classList.toggle('visible', value === true);
 
     if (!value) {
         document.getElementById('adults').value = 1;
         document.getElementById('children').value = 0;
         document.getElementById('babies').value = 0;
+        document.getElementById('event-ceremony').checked = false;
+        document.getElementById('event-reception').checked = false;
     }
 }
 
@@ -447,12 +453,20 @@ document.getElementById('rsvp-form').addEventListener('submit', async (e) => {
     e.preventDefault();
     const submitBtn = e.target.querySelector('button[type="submit"]');
 
+    const attending = formState.attending;
+    const ceremony = document.getElementById('event-ceremony').checked;
+    const reception = document.getElementById('event-reception').checked;
+
     const formData = {
         firstName: document.getElementById('firstName').value.trim(),
         lastName: document.getElementById('lastName').value.trim(),
         email: document.getElementById('email').value.trim(),
         phone: document.getElementById('phone').value.trim(),
-        attending: formState.attending,
+        attending: attending,
+        events: {
+            ceremony: ceremony,
+            reception: reception
+        },
         adults: parseInt(document.getElementById('adults').value) || 0,
         children: parseInt(document.getElementById('children').value) || 0,
         babies: parseInt(document.getElementById('babies').value) || 0,
@@ -464,6 +478,7 @@ document.getElementById('rsvp-form').addEventListener('submit', async (e) => {
     if (!formData.firstName || !formData.lastName) { showError('Veuillez entrer votre nom complet'); return; }
     if (!formData.email && !formData.phone) { showError('Veuillez entrer un email ou un numéro de téléphone'); return; }
     if (formData.attending === null) { showError('Veuillez indiquer si vous serez présent(e)'); return; }
+    if (formData.attending && !formData.events.ceremony && !formData.events.reception) { showError('Veuillez sélectionner au moins un événement'); return; }
 
     submitBtn.disabled = true;
     submitBtn.textContent = 'Envoi en cours...';
@@ -520,4 +535,53 @@ function closeThankYou() {
     formState = { attending: null, adults: 1, children: 0, babies: 0 };
     setAttending(null);
     window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function initializeAnecdotes() {
+    const form = document.getElementById('anecdote-form');
+    if (!form) return;
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const statusDiv = document.getElementById('anecdote-status');
+
+        const formData = {
+            type: 'anecdote',
+            name: document.getElementById('anecdote-name').value.trim(),
+            message: document.getElementById('anecdote-message').value.trim()
+        };
+
+        if (!formData.name || !formData.message) {
+            statusDiv.textContent = 'Merci de remplir tous les champs.';
+            statusDiv.style.color = 'red';
+            return;
+        }
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Envoi en cours...';
+        statusDiv.textContent = '';
+
+        try {
+            if (CONFIG.googleSheetsUrl) {
+                await fetch(CONFIG.googleSheetsUrl, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'text/plain' },
+                    body: JSON.stringify(formData)
+                });
+            }
+
+            statusDiv.textContent = 'Merci ! Votre anecdote a bien été envoyée. on a hâte de la lire !';
+            statusDiv.style.color = 'green';
+            form.reset();
+        } catch (error) {
+            console.error('Submission error:', error);
+            statusDiv.textContent = 'Oups, une erreur est survenue. Réessayez plus tard.';
+            statusDiv.style.color = 'red';
+        }
+
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'ENVOYER MON ANECDOTE';
+    });
 }

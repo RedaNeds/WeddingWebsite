@@ -6,7 +6,7 @@
  * INSTRUCTIONS D'INSTALLATION :
  * 
  * 1. Créez un nouveau Google Sheet avec ces en-têtes en ligne 1 :
- *    Date | Prénom | Nom | Email | Téléphone | Présent | Adultes | Enfants | Bébés | Noms accompagnants | Restrictions | Message
+ *    Date | Prénom | Nom | Email | Téléphone | Présent | Cérémonie | Soirée | Adultes | Enfants | Bébés | Noms accompagnants | Restrictions | Message
  * 
  * 2. Dans Google Sheets : Extensions → Apps Script
  * 
@@ -28,8 +28,8 @@
  */
 
 // CONFIGURATION - Remplacez par l'ID de votre Google Sheet
-const SPREADSHEET_ID = 'VOTRE_SPREADSHEET_ID';
-const SHEET_NAME = 'Sheet1'; // Ou le nom de votre feuille
+const SPREADSHEET_ID = '1BVaW0fj116Ah_xBsRwBJPY7IAzd71lT0HNaTymo77hE';
+const SHEET_NAME = 'Invitations'; // Ou le nom de votre feuille
 
 /**
  * Fonction principale qui reçoit les données du formulaire
@@ -43,16 +43,36 @@ function doPost(e) {
 
     // Parser les données JSON
     const data = JSON.parse(e.postData.contents);
-
-    // Ouvrir le spreadsheet
     const spreadsheet = SpreadsheetApp.openById(SPREADSHEET_ID);
-    const sheet = spreadsheet.getSheetByName(SHEET_NAME);
 
-    if (!sheet) {
-      return createResponse(false, 'Feuille non trouvée');
+    // GESTION DES ANECDOTES
+    if (data.type === 'anecdote') {
+      let sheet = spreadsheet.getSheetByName('Anecdotes');
+      if (!sheet) {
+        sheet = spreadsheet.insertSheet('Anecdotes');
+        sheet.appendRow(['Date', 'Nom', 'Anecdote']); // En-têtes automatiques
+        sheet.setFrozenRows(1);
+      }
+
+      const now = new Date();
+      const dateStr = Utilities.formatDate(now, 'Europe/Paris', 'dd/MM/yyyy HH:mm');
+
+      sheet.appendRow([
+        dateStr,
+        data.name || 'Anonyme',
+        data.message || ''
+      ]);
+
+      return createResponse(true, 'Anecdote enregistrée avec succès');
     }
 
-    // Vérifier les doublons
+    // GESTION RSVP (Cas par défaut)
+    const sheet = spreadsheet.getSheetByName(SHEET_NAME);
+    if (!sheet) {
+      return createResponse(false, 'Feuille Invitations non trouvée');
+    }
+
+    // Le reste du code RSVP...
     if (checkDuplicate(sheet, data.email, data.phone)) {
       return createResponse(false, 'Une réponse existe déjà pour cet email ou téléphone');
     }
@@ -69,6 +89,8 @@ function doPost(e) {
       data.email || '',                           // Email
       data.phone || '',                           // Téléphone
       data.attending ? 'Oui' : 'Non',            // Présent
+      data.attending && data.events && data.events.ceremony ? 'Oui' : 'Non', // Cérémonie
+      data.attending && data.events && data.events.reception ? 'Oui' : 'Non', // Soirée
       data.attending ? (data.adults || 1) : 0,   // Adultes
       data.attending ? (data.children || 0) : 0, // Enfants
       data.attending ? (data.babies || 0) : 0,   // Bébés
@@ -79,9 +101,6 @@ function doPost(e) {
 
     // Ajouter la ligne
     sheet.appendRow(row);
-
-    // Envoyer un email de notification (optionnel)
-    // sendNotificationEmail(data);
 
     return createResponse(true, 'Réponse enregistrée avec succès');
 
