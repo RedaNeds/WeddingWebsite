@@ -1280,6 +1280,18 @@ body {
   .practical-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  .scroll-indicator span {
+    display: none;
+  }
+
+  .scroll-indicator {
+    bottom: 0.5rem;
+  }
+
+  .gallery-item:nth-child(3) img {
+    object-position: top;
+  }
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════════

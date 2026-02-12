@@ -517,12 +517,35 @@ function showThankYou(data) {
     const overlay = document.getElementById('thankyou-overlay');
     const summaryContent = document.getElementById('summary-content');
 
+    // Elements to update
+    const titleEl = document.getElementById('thankyou-title');
+    const messageEl = document.getElementById('thankyou-message');
+    const iconEl = document.getElementById('thankyou-icon');
+
     let html = `<div class="summary-item"><span class="summary-label">Nom</span><span class="summary-value">${data.firstName} ${data.lastName}</span></div>`;
+
     if (data.attending) {
-        html += `<div class="summary-item"><span class="summary-label">Présence</span><span class="summary-value">Oui</span></div>
-                 <div class="summary-item"><span class="summary-label">Adultes</span><span class="summary-value">${data.adults}</span></div>`;
+        // Message pour ceux qui VIENNENT
+        titleEl.textContent = "Merci beaucoup !";
+        messageEl.textContent = "Nous sommes ravis de vous compter parmi nous pour célébrer notre union.";
+        iconEl.textContent = "💕";
+
+        html += `<div class="summary-item"><span class="summary-label">Présence</span><span class="summary-value">Oui, avec joie</span></div>`;
+        if (data.events.ceremony) {
+            html += `<div class="summary-item"><span class="summary-label">Cérémonie</span><span class="summary-value">Oui</span></div>`;
+        }
+        if (data.events.reception) {
+            html += `<div class="summary-item"><span class="summary-label">Soirée</span><span class="summary-value">Oui</span></div>`;
+        }
+        html += `<div class="summary-item"><span class="summary-label">Adultes</span><span class="summary-value">${data.adults}</span></div>`;
+
     } else {
-        html += `<div class="summary-item"><span class="summary-label">Présence</span><span class="summary-value">Non</span></div>`;
+        // Message pour ceux qui NE VIENNENT PAS
+        titleEl.textContent = "Merci d'avoir répondu";
+        messageEl.textContent = "Nous regrettons que vous ne puissiez pas être des nôtres, mais nous penserons bien à vous.";
+        iconEl.textContent = "💌";
+
+        html += `<div class="summary-item"><span class="summary-label">Présence</span><span class="summary-value">Malheureusement non</span></div>`;
     }
 
     summaryContent.innerHTML = html;
