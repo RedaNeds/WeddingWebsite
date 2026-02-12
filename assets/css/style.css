@@ -1290,7 +1290,7 @@ body {
   }
 
   .gallery-item:nth-child(3) img {
-    object-position: top;
+    object-position: 50% 30%;
   }
 }
 
