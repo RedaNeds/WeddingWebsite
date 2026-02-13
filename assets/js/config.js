@@ -103,7 +103,7 @@ const CONFIG = {
     texts: {
         heroSubtitle: "Nous avons l'honneur de vous inviter à célébrer notre union",
         heroInvitation: "Avec joie et émotion, nous serions honorés de votre présence pour partager ce moment unique de nos vies.",
-        rsvpDeadline: "Merci de répondre avant le 20 Février 2026",
+        rsvpDeadline: "Merci de répondre avant le 25 février 2026",
     },
 
     // Google Sheets integration (optionnel)
