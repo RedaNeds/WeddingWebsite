@@ -114,9 +114,6 @@ function initializeContent() {
         document.getElementById('practical-grid').innerHTML = practicalHTML;
     }
 
-    // RSVP
-    document.getElementById('rsvp-deadline').textContent = CONFIG.texts.rsvpDeadline;
-
     // Footer
     document.getElementById('footer-date').textContent = CONFIG.event.dateFormatted;
 }
