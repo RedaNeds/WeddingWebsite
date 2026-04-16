@@ -409,6 +409,8 @@ function initializeNavbar() {
 // ═══════════════════════════════════════════════════════════════════════════════
 
 function setAttending(value) {
+    if (!document.getElementById('rsvp-form')) return;
+
     if (formState.attending === value) return;
     formState.attending = value;
     document.getElementById('attending').value = value;
@@ -446,7 +448,9 @@ function saveResponse(data) {
     return newResponse;
 }
 
-document.getElementById('rsvp-form').addEventListener('submit', async (e) => {
+const rsvpForm = document.getElementById('rsvp-form');
+if (rsvpForm) {
+    rsvpForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     const submitBtn = e.target.querySelector('button[type="submit"]');
 
@@ -496,7 +500,9 @@ document.getElementById('rsvp-form').addEventListener('submit', async (e) => {
     }
     submitBtn.disabled = false;
     submitBtn.textContent = 'Envoyer ma réponse';
-});
+    });
+}
+
 
 function showError(message) {
     const errorDiv = document.getElementById('form-error');
@@ -551,7 +557,9 @@ function showThankYou(data) {
 
 function closeThankYou() {
     document.getElementById('thankyou-overlay').classList.remove('visible');
-    document.getElementById('rsvp-form').reset();
+    const rsvpForm = document.getElementById('rsvp-form');
+    if (rsvpForm) rsvpForm.reset();
+
     formState = { attending: null, adults: 1, children: 0, babies: 0 };
     setAttending(null);
     window.scrollTo({ top: 0, behavior: 'smooth' });
