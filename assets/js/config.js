@@ -19,8 +19,8 @@ const CONFIG = {
     // Date et heure
     event: {
         date: "16 mai 2026",
-        dateFormatted: "11H30. Samedi 16 Mai 2026",
-        time: "11H30",
+        dateFormatted: "11H15. Samedi 16 Mai 2026",
+        time: "11H15",
     },
 
     // Lieux
@@ -42,7 +42,7 @@ const CONFIG = {
 
     // Programme - À MODIFIER
     program: [
-        { time: "11h30", event: "Cérémonie civile (Mairie du 18ème)", icon: "💒" },
+        { time: "11h15", event: "Cérémonie civile (Mairie du 18ème)", icon: "💒" },
         { time: "17h45", event: "Arrivée des invités à la salle", icon: "👩👨" },
         { time: "18h30", event: "Ouverture du Atay d'honneur par les mariés", icon: "👰🤵" },
         { time: "20h00", event: "Dîner", icon: "🍽️" },

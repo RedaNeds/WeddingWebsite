@@ -31,7 +31,7 @@ const CONFIG = {
 
   // Programme
   program: [
-    { time: "11h30", event: "Cérémonie", icon: "💒" },
+    { time: "11h15", event: "Cérémonie", icon: "💒" },
     { time: "17h30", event: "Vin d'honneur & Photos", icon: "🥂" },
     { time: "20h00", event: "Dîner", icon: "🍽️" },
     { time: "22h00", event: "Soirée dansante", icon: "💃" },
